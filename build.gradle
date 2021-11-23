@@ -25,6 +25,8 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testCompileOnly('org.spockframework:spock-core:1.1-groovy-2.4')
+    testCompileOnly('org.spockframework:spock-spring:1.1-groovy-2.4')
 }
 
 test {
