@@ -24,4 +24,4 @@
 
 ERD
 ---
-![image]()
+![스크린샷 2021-11-26 14 02 27](https://user-images.githubusercontent.com/83687214/143529538-1c76db85-4d15-412f-9f0f-d60aa734f824.png)
