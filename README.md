@@ -23,7 +23,7 @@
 
 정책
 ---
-
+- [자세히 보기](https://github.com/f-lab-edu/Yummy-Delivery/wiki/%EC%A0%95%EC%B1%85)
 
 ERD
 ---
