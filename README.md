@@ -19,8 +19,9 @@
 
 프로젝트 사용기술
 ---
-java, spring boot, mybatis, mysql, spock, junit
+- java, spring boot, mybatis, mysql, spock, junit
 
 
 ERD
 ---
+![image]()
