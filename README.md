@@ -27,4 +27,4 @@
 
 ERD
 ---
-![스크린샷 2021-11-26 14 02 27](https://user-images.githubusercontent.com/83687214/143529538-1c76db85-4d15-412f-9f0f-d60aa734f824.png)
+![image](https://user-images.githubusercontent.com/83687214/144177517-acf57dce-3742-4f68-ace3-7480feea2d50.png)
