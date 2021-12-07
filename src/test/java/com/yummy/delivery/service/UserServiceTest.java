@@ -32,7 +32,6 @@ public class UserServiceTest {
                 "수원시 장안구 영화동"
                 );
 
-
         //when
         String saveEmail = userService.signUp(user);
 
@@ -42,7 +41,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void 중복_회원_예외() {
+    public void 중복_이메일_확인() {
         //given
         User user1 = new User("lwg0907@naver.com",
                 "lee0079",
