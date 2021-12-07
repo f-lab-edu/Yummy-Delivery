@@ -2,6 +2,7 @@ package com.yummy.delivery.repository;
 
 import com.yummy.delivery.domain.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
