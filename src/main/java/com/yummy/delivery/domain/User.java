@@ -1,27 +1,24 @@
 package com.yummy.delivery.domain;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 public class User {
 
-    public User(String email, String password, String name, String phone, String address) {
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.phone = phone;
-        this.address = address;
-    }
 
+    private int id;
     private String email;
     private String password;
     private String name;
     private String phone;
     private String address;
+    private LocalDateTime created_at;
+    private LocalDateTime updated_at;
 
 }
