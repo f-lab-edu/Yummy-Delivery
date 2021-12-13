@@ -8,9 +8,10 @@ import lombok.ToString;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
+@ToString
 public class User {
-
 
     private int id;
     private String email;

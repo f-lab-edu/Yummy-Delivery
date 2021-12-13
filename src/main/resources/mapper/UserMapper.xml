@@ -17,7 +17,7 @@
     </select>
 
     <select id="findAll" resultType="List">
-    SELECT * FROM UserProfile
+        SELECT * FROM User
     </select>
 
 

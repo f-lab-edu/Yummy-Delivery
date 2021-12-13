@@ -2,7 +2,6 @@ package com.yummy.delivery.service;
 
 import com.yummy.delivery.domain.User;
 import com.yummy.delivery.mapper.UserMapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,31 +16,24 @@ public class UserService {
     @Autowired private PasswordEncoder passwordEncoder;
 
 
-    public void signUp(@Param("email") String email, @Param("password") String password,
-                       @Param("name") String name, @Param("phone") String phone, @Param("address") String address) {
-        if(userMapper.isExistsEmail(email)){
-            throw new IllegalStateException("Same Email existed : " + email);
+    public void signUp(User user){
+
+        if(userMapper.isExistsEmail(user.getEmail())){
+            throw new IllegalStateException("Same Email existed : " + user.getEmail());
         }
-//        user.setEmail(email);
-//        user.setPassword(password);
-//        user.setName(name);
-//        user.setPhone(phone);
-//        user.setAddress(address);
 
-        String encodePassword = passwordEncoder.encode(password);
+        String encodePassword = passwordEncoder.encode(user.getPassword());
 
-        LocalDateTime created_at = LocalDateTime.now();
-        LocalDateTime updated_at = LocalDateTime.now();
+        user.setPassword(encodePassword);
+        user.setCreated_at(LocalDateTime.now());
+        user.setUpdated_at(LocalDateTime.now());
 
-        userMapper.insertUser(email, encodePassword, name, phone, address, created_at,updated_at);
-
+        userMapper.insertUser(user);
     }
 
     public List<User> getUserList(){
         return userMapper.findAll();
     }
-
-
 
 
 //    public Optional<User> findOne(String email){
@@ -53,5 +45,20 @@ public class UserService {
 //    }
 
 
-
 }
+
+
+/* 파라미터 방식*/
+//    public void signUp(@Param("email") String email, @Param("password") String password,
+//                       @Param("name") String name, @Param("phone") String phone, @Param("address") String address) {
+//        if(userMapper.isExistsEmail(email)){
+//            throw new IllegalStateException("Same Email existed : " + email);
+//        }
+//        String encodePassword = passwordEncoder.encode(password);
+//
+//        LocalDateTime created_at = LocalDateTime.now();
+//        LocalDateTime updated_at = LocalDateTime.now();
+//
+//        userMapper.insertUser(email, encodePassword, name, phone, address, created_at, updated_at);
+//
+//    }
