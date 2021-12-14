@@ -13,9 +13,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping("/user/all")
     public List<User> getUserList() {
@@ -23,14 +20,14 @@ public class UserController {
     }
 
 
-    @PostMapping("/user")
+    @PostMapping("/user/signup")
     public void signUp(User user) {
         userService.signUp(user);
     }
 
 }
 
-/*파라미터 방식*/
+/* @Param Annotation 방식 */
 //@PostMapping("/user")
 //    public void signUp(@RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("name") String name, @RequestParam("phone") String phone, @RequestParam("address") String address) {
 //        userService.signUp(email, password, name, phone, address);

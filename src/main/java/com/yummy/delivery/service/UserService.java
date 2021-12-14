@@ -31,6 +31,8 @@ public class UserService {
         userMapper.insertUser(user);
     }
 
+
+
     public List<User> getUserList(){
         return userMapper.findAll();
     }
@@ -48,7 +50,7 @@ public class UserService {
 }
 
 
-/* 파라미터 방식*/
+/* @Param Annotation 방식 */
 //    public void signUp(@Param("email") String email, @Param("password") String password,
 //                       @Param("name") String name, @Param("phone") String phone, @Param("address") String address) {
 //        if(userMapper.isExistsEmail(email)){

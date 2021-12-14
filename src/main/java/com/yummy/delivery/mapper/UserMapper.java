@@ -20,7 +20,7 @@ public interface UserMapper {
 
 
 
-/*파라미터 방식*/
+/* @Param Annotation 방식 */
 //    void insertUser(@Param("email") String email, @Param("password") String password, @Param("name") String name,
 //                    @Param("phone") String phone, @Param("address") String address, @Param("created_at") LocalDateTime created_at,
 //                    @Param("updated_at") LocalDateTime updated_at);
