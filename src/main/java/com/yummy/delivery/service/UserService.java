@@ -22,6 +22,10 @@ public class UserService {
             throw new IllegalStateException("Same Email existed : " + user.getEmail());
         }
 
+        if(user.getPassword().length() < 8){
+            throw new IllegalStateException("Password must be at least 8.");
+        }
+
         String encodePassword = passwordEncoder.encode(user.getPassword());
 
         user.setPassword(encodePassword);

@@ -15,8 +15,13 @@ public class SellerService {
     @Autowired private PasswordEncoder passwordEncoder;
 
     public void signUp(Seller seller){
+
         if(sellerMapper.isExistsEmail(seller.getEmail())){
             throw new IllegalStateException("Same Email existed : " + seller.getEmail());
+        }
+
+        if(seller.getPassword().length() < 8){
+            throw new IllegalStateException("Password must be at least 8.");
         }
 
         String encodePassword = passwordEncoder.encode(seller.getPassword());
