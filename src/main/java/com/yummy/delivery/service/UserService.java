@@ -2,6 +2,7 @@ package com.yummy.delivery.service;
 
 import com.yummy.delivery.domain.User;
 import com.yummy.delivery.mapper.UserMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,25 +18,39 @@ public class UserService {
 
 
     public void signUp(User user){
-
-        if(userMapper.isExistsEmail(user.getEmail())){
-            throw new IllegalStateException("Same Email existed : " + user.getEmail());
-        }
-
-        if(user.getPassword().length() < 8){
-            throw new IllegalStateException("Password must be at least 8.");
-        }
-
-        String encodePassword = passwordEncoder.encode(user.getPassword());
-
-        user.setPassword(encodePassword);
-        user.setCreated_at(LocalDateTime.now());
-        user.setUpdated_at(LocalDateTime.now());
-
+        encryptedPassword(user);    //  비밀번호 암호화
+        saveInitialTime(user);     //  생성시간, 수정시간 저장
         userMapper.insertUser(user);
     }
 
+    public void checkSameEmail(@Param("email") String email){
+        if(userMapper.isExistsEmail(email)){
+            throw new IllegalStateException("사욪 중인 이메일입니다");
+        }
+    }
 
+    public void checkNullData(User user){
+        if(user.getEmail() == null || user.getPassword() ==null || user.getName() == null ||
+                user.getPhone() == null || user.getAddress() == null){
+            throw new NullPointerException("회원정보를 모두 기입해주세요");
+        }
+    }
+
+    public void checkPasswordLength(User user){
+        if(user.getPassword().length() < 8){
+            throw new IllegalStateException("비밀번호를 8자리 이상 입력해주세요.");
+        }
+    }
+
+    public void encryptedPassword(User user){
+        String encodePassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodePassword);
+    }
+
+    public void saveInitialTime(User user){
+        user.setCreated_at(LocalDateTime.now());
+        user.setUpdated_at(LocalDateTime.now());
+    }
 
     public List<User> getUserList(){
         return userMapper.findAll();

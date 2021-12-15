@@ -2,6 +2,7 @@ package com.yummy.delivery.mapper;
 
 import com.yummy.delivery.domain.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface UserMapper {
 
     void insertUser(User user);
 
-    boolean isExistsEmail(String email);
+    boolean isExistsEmail(@Param("email") String email);
 
     List<User> findAll();
 

@@ -1,11 +1,9 @@
 package com.yummy.delivery.domain;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
 @Getter
