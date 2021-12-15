@@ -11,6 +11,8 @@ public interface UserMapper {
 
     void insertUser(User user);
 
+    void deleteUser(@Param("email") String email);
+
     boolean isExistsEmail(@Param("email") String email);
 
     List<User> findAll();

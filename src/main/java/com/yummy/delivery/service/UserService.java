@@ -17,18 +17,26 @@ public class UserService {
     @Autowired private PasswordEncoder passwordEncoder;
 
 
+    /* 회원가입 */
     public void signUp(User user){
         encryptedPassword(user);    //  비밀번호 암호화
         saveInitialTime(user);     //  생성시간, 수정시간 저장
         userMapper.insertUser(user);
     }
 
+    /* 회원탈퇴 */
+    public void userWithdrawal(@Param("email") String email){
+        userMapper.deleteUser(email);
+    }
+
+    /* 중복 이메일 확인 */
     public void checkSameEmail(@Param("email") String email){
         if(userMapper.isExistsEmail(email)){
-            throw new IllegalStateException("사욪 중인 이메일입니다");
+            throw new IllegalStateException("사용 중인 이메일입니다");
         }
     }
 
+    /* null 값 확인 */
     public void checkNullData(User user){
         if(user.getEmail() == null || user.getPassword() ==null || user.getName() == null ||
                 user.getPhone() == null || user.getAddress() == null){
@@ -36,12 +44,14 @@ public class UserService {
         }
     }
 
+    /* 비밀번호 길이 확인 */
     public void checkPasswordLength(User user){
         if(user.getPassword().length() < 8){
             throw new IllegalStateException("비밀번호를 8자리 이상 입력해주세요.");
         }
     }
 
+    /* 비밀번호 암호화 */
     public void encryptedPassword(User user){
         String encodePassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodePassword);

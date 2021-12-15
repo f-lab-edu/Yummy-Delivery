@@ -11,6 +11,10 @@
         </selectKey>
     </insert>
 
+    <delete id="deleteUser" parameterType="String">
+        DELETE FROM USER WHERE email = #{email}
+    </delete>
+
    <select id="isExistsEmail" resultType="boolean">
         SELECT EXISTS
         (SELECT email FROM USER WHERE email = #{email})
@@ -35,9 +39,7 @@
         FROM USER WHERE id = #{id}
     </select>
 
-    <delete id="deleteUser" parameterType="String">
-        DELETE FROM USER WHERE id = #{id}
-    </delete>
+
 
     <update id="updateUserPassword" parameterType="String">
         UPDATE USER SET password = #{newPassword} , updated_at = NOW()
