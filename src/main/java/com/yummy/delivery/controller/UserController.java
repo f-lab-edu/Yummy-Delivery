@@ -11,6 +11,7 @@ import static com.yummy.delivery.httpStatus.httpComponent.RESPONSE_ENTITY_OK;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
@@ -27,7 +28,7 @@ public class UserController {
         return RESPONSE_ENTITY_OK;
     }
 
-    @PutMapping("/users/{user}")
+    @PutMapping("/mypage")
     public ResponseEntity<Void> updateUser(@RequestBody UserDTO userDTO) {
         userService.updateUser(userDTO);
         return RESPONSE_ENTITY_OK;

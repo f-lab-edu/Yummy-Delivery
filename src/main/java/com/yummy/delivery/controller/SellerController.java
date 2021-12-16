@@ -10,6 +10,7 @@ import static com.yummy.delivery.httpStatus.httpComponent.RESPONSE_ENTITY_OK;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/sellers")
 public class SellerController {
 
     private final SellerService sellerService;
@@ -26,7 +27,7 @@ public class SellerController {
         return RESPONSE_ENTITY_OK;
     }
 
-    @PutMapping("/sellers/{seller}")
+    @PutMapping("/mypage")
     public ResponseEntity<Void> updateSeller(@RequestBody SellerDTO sellerDTO) {
         sellerService.updateSeller(sellerDTO);
         return RESPONSE_ENTITY_OK;
