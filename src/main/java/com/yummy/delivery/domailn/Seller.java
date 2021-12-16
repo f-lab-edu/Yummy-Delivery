@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor
-public class User {
+public class Seller {
 
     private final long id;
 
@@ -15,10 +15,7 @@ public class User {
 
     private final String password;
 
-    private final String name;
-
     private final String phone;
 
     private final String address;
-
 }
