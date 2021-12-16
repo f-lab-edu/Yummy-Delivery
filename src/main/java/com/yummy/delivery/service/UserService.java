@@ -39,21 +39,4 @@ public class UserService {
         httpSession.removeAttribute("USER_ID");
     }
 
-    public void updateUser(UserDTO userDTO) {
-        User user = userMapper.findByEmailAndPassword(userDTO.getEmail(),
-                userDTO.getPassword());
-
-        validateExistUser(user);
-
-        User userBuilder = User.builder()
-                .id(user.getId())
-                .password(userDTO.getPassword())
-                .address(userDTO.getAddress())
-                .name(userDTO.getName())
-                .phone(userDTO.getPhone())
-                .build();
-
-        userMapper.updateByPasswordAndAddress(user);
-    }
-
 }
