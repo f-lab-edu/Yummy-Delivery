@@ -39,4 +39,20 @@ public class SellerService {
         httpSession.removeAttribute("SELLER_ID");
     }
 
+    public void updateSeller(SellerDTO sellerDTO) {
+        Seller seller = sellerMapper.findByEmailAndPassword(sellerDTO.getEamil(),
+                sellerDTO.getPassword());
+
+        validateExistUser(seller);
+
+        Seller sellerBuilder = Seller.builder()
+                .id(seller.getId())
+                .password(sellerDTO.getPassword())
+                .address(sellerDTO.getAddress())
+                .build();
+
+        sellerMapper.updateByPasswordAndAddress(seller);
+    }
+
+
 }
