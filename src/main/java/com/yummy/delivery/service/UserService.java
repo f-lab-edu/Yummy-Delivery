@@ -1,41 +1,95 @@
 package com.yummy.delivery.service;
 
 import com.yummy.delivery.domain.User;
-import com.yummy.delivery.repository.UserRepository;
+import com.yummy.delivery.mapper.UserMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    @Autowired private UserMapper userMapper;
+    @Autowired private PasswordEncoder passwordEncoder;
 
-    public String signUp(User user)  {
-        if(userRepository.isExistsEmail(user.getEmail())){
-            throw new IllegalStateException("Same Email existed : " + user.getEmail());
+
+    /* 회원가입 */
+    public void signUp(User user){
+        encryptedPassword(user);    //  비밀번호 암호화
+        saveInitialTime(user);     //  생성시간, 수정시간 저장
+        userMapper.insertUser(user);
+    }
+
+    /* 회원탈퇴 */
+    public void userWithdrawal(@Param("email") String email){
+        userMapper.deleteUser(email);
+    }
+
+    /* 중복 이메일 확인 */
+    public void checkSameEmail(@Param("email") String email){
+        if(userMapper.isExistsEmail(email)){
+            throw new IllegalStateException("사용 중인 이메일입니다");
         }
-        userRepository.insertUser(user);
-
-        return user.getEmail();
     }
 
-    public boolean checkSameEmail(String email){
-        return userRepository.isExistsEmail(email);
+    /* null 값 확인 */
+    public void checkNullData(User user){
+        if(user.getEmail() == null || user.getPassword() ==null || user.getName() == null ||
+                user.getPhone() == null || user.getAddress() == null){
+            throw new NullPointerException("회원정보를 모두 기입해주세요");
+        }
     }
 
-    public Optional<User> findOne(String email){
-        return userRepository.findByEmail(email);
+    /* 비밀번호 길이 확인 */
+    public void checkPasswordLength(User user){
+        if(user.getPassword().length() < 8){
+            throw new IllegalStateException("비밀번호를 8자리 이상 입력해주세요.");
+        }
     }
+
+    /* 비밀번호 암호화 */
+    public void encryptedPassword(User user){
+        String encodePassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodePassword);
+    }
+
+    public void saveInitialTime(User user){
+        user.setCreated_at(LocalDateTime.now());
+        user.setUpdated_at(LocalDateTime.now());
+    }
+
+    public List<User> getUserList(){
+        return userMapper.findAll();
+    }
+
+
+//    public Optional<User> findOne(String email){
+//        return userMapper.findByEmail(email);
+//    }
 
 //    public List<User> findMembers(){
 //        return userRepository.findAll();
 //    }
 
 
-
 }
+
+
+/* @Param Annotation 방식 */
+//    public void signUp(@Param("email") String email, @Param("password") String password,
+//                       @Param("name") String name, @Param("phone") String phone, @Param("address") String address) {
+//        if(userMapper.isExistsEmail(email)){
+//            throw new IllegalStateException("Same Email existed : " + email);
+//        }
+//        String encodePassword = passwordEncoder.encode(password);
+//
+//        LocalDateTime created_at = LocalDateTime.now();
+//        LocalDateTime updated_at = LocalDateTime.now();
+//
+//        userMapper.insertUser(email, encodePassword, name, phone, address, created_at, updated_at);
+//
+//    }
