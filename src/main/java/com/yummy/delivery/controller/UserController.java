@@ -1,19 +1,23 @@
 package com.yummy.delivery.controller;
 
 import com.yummy.delivery.domain.User;
+import com.yummy.delivery.dto.UserDTO;
 import com.yummy.delivery.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.yummy.delivery.httpStatus.httpComponent.RESPONSE_ENTITY_OK;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
+@RequestMapping("/users")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
-
-    @GetMapping("/user/all")
+    private final UserService userService;
+  
+      @GetMapping("/user/all")
     public List<User> getUserList() {
         return userService.getUserList();
     }
@@ -39,11 +43,24 @@ public class UserController {
     }
 
 
+    @PostMapping("/login")
+    public ResponseEntity<Void> login(@RequestBody UserDTO userDTO) {
+        userService.login(userDTO);
+        return RESPONSE_ENTITY_OK;
+    }
 
-}
-
+    @GetMapping("/logout")
+    public ResponseEntity<Void> logout() {
+        userService.logout();
+        return RESPONSE_ENTITY_OK;
+    }
+  
 /* @Param Annotation 방식 */
 //@PostMapping("/user")
 //    public void signUp(@RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("name") String name, @RequestParam("phone") String phone, @RequestParam("address") String address) {
 //        userService.signUp(email, password, name, phone, address);
 //    }
+
+}
+
+
