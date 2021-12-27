@@ -1,6 +1,6 @@
 package com.yummy.delivery.mapper;
 
-import com.yummy.delivery.domailn.User;
+import com.yummy.delivery.domain.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
