@@ -11,5 +11,9 @@ public interface SellerMapper {
 
     @Select("SELECT * FROM Seller WHERE email = #{email} AND password = #{password}")
     Seller findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
+    
+    void insertSeller(Seller seller);
 
+    boolean isExistsEmail(@Param("email") String email);
+    
 }
