@@ -2,6 +2,7 @@ package com.yummy.delivery.service;
 
 import com.yummy.delivery.domain.User;
 import com.yummy.delivery.mapper.UserMapper;
+import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,11 +11,12 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class UserService {
 
-    @Autowired private UserMapper userMapper;
-    @Autowired private PasswordEncoder passwordEncoder;
+   private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
 
     /* 회원가입 */
@@ -58,8 +60,8 @@ public class UserService {
     }
 
     public void saveInitialTime(User user){
-        user.setCreated_at(LocalDateTime.now());
-        user.setUpdated_at(LocalDateTime.now());
+        user.setCreatedAt(LocalDateTime.now());
+        user.setUpdatedAt(LocalDateTime.now());
     }
 
     public List<User> getUserList(){

@@ -46,7 +46,7 @@ public class SellerService {
     }
 
     public void saveInitialTime(Seller seller){
-        seller.setCreated_at(LocalDateTime.now());
-        seller.setUpdated_at(LocalDateTime.now());
+        seller.setCreatedAt(LocalDateTime.now());
+        seller.setUpdatedAt(LocalDateTime.now());
     }
 }

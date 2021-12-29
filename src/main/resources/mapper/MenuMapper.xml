@@ -5,7 +5,7 @@
 <mapper namespace = "com.yummy.delivery.mapper.MenuMapper">
 
     <insert id="insertMenu" parameterType="com.yummy.delivery.mapper.MenuMapper" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO menu (store_id, name, price, photo, description, created_at, updated_at) VALUES(#{store_id}, #{name}, #{price}, #{photo}, #{description}, #{created_at}, #{updated_at})
+        INSERT INTO menu (store_id, name, price, photo, description, created_at, updated_at) VALUES(#{storeId}, #{name}, #{price}, #{photo}, #{description}, #{createdAt}, #{updatedAt})
         <selectKey keyProperty="id" resultType="int" order="AFTER">
             SELECT last_insert_id()
         </selectKey>

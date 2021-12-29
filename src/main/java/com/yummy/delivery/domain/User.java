@@ -17,7 +17,7 @@ public class User {
     private String name;
     private String phone;
     private String address;
-    private LocalDateTime created_at;
-    private LocalDateTime updated_at;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 }

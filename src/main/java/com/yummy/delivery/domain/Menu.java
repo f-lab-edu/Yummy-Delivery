@@ -12,12 +12,12 @@ import java.time.LocalDateTime;
 public class Menu {
 
     private int id;
-    private int store_id;
+    private int storeId;
     private String name;
     private int price;
     private String photo;
     private String description;
-    private LocalDateTime created_at;
-    private LocalDateTime updated_at;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 }
