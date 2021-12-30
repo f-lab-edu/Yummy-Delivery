@@ -1,10 +1,13 @@
 package com.yummy.delivery.controller;
 
 import com.yummy.delivery.domain.User;
+import com.yummy.delivery.dto.UserDTO;
 import com.yummy.delivery.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.yummy.delivery.httpStatus.httpComponent.RESPONSE_ENTITY_OK;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -21,7 +24,7 @@ public class UserController {
 
     /* 아이디(이메일) 중복확인 */
     @GetMapping("/signup/{email}")
-    public void checkSameEmail(@PathVariable("email") String email){
+    public void checkSameEmail(@PathVariable("email") String email) {
         userService.checkSameEmail(email);
     }
 
@@ -35,12 +38,22 @@ public class UserController {
 
     /* 회원 탈퇴 */
     @DeleteMapping("mypage/{email}")
-    public void userWithdrawal(@PathVariable("email") String email){
+    public void userWithdrawal(@PathVariable("email") String email) {
         userService.userWithdrawal(email);
     }
 
 
+    @PostMapping("/login")
+    public ResponseEntity<Void> login(@RequestBody UserDTO userDTO) {
+        userService.login(userDTO);
+        return RESPONSE_ENTITY_OK;
+    }
 
+    @GetMapping("/logout")
+    public ResponseEntity<Void> logout() {
+        userService.logout();
+        return RESPONSE_ENTITY_OK;
+    }
 }
 
 /* @Param Annotation 방식 */
