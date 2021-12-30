@@ -4,7 +4,6 @@ import com.yummy.delivery.domain.User;
 import com.yummy.delivery.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +14,8 @@ import java.util.List;
 @Service
 public class UserService {
 
-   private final UserMapper userMapper;
+    private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
-
 
     /* 회원가입 */
     public void signUp(User user){

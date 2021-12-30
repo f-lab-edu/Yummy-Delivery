@@ -3,7 +3,6 @@ package com.yummy.delivery.controller;
 import com.yummy.delivery.domain.Seller;
 import com.yummy.delivery.service.SellerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -11,8 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/sellers")
 public class SellerController {
 
-    @Autowired
-    SellerService sellerService;
+    private final SellerService sellerService;
 
     /* 아이디(이메일) 중복확인 */
     @GetMapping("/signup/{email}")

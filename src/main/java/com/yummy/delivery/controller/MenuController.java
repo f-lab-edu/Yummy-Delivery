@@ -3,7 +3,6 @@ package com.yummy.delivery.controller;
 import com.yummy.delivery.domain.Menu;
 import com.yummy.delivery.service.MenuService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

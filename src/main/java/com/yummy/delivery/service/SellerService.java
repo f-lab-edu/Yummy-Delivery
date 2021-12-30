@@ -1,20 +1,20 @@
 package com.yummy.delivery.service;
 
 import com.yummy.delivery.domain.Seller;
-import com.yummy.delivery.domain.User;
 import com.yummy.delivery.mapper.SellerMapper;
+import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+@RequiredArgsConstructor
 @Service
 public class SellerService {
 
-    @Autowired SellerMapper sellerMapper;
-    @Autowired private PasswordEncoder passwordEncoder;
+    private final SellerMapper sellerMapper;
+    private final PasswordEncoder passwordEncoder;
 
     public void signUp(Seller seller){
         encryptedPassword(seller);  //  비밀번호 암호화
