@@ -11,10 +11,10 @@ import java.time.LocalDateTime;
 @ToString
 public class Menu {
 
-    private int id;
-    private int storeId;
+    private Integer id;
+    private Integer storeId;
     private String name;
-    private int price;
+    private Integer price;
     private String photo;
     private String description;
     private LocalDateTime createdAt;
