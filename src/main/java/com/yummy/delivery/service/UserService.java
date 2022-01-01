@@ -1,6 +1,6 @@
 package com.yummy.delivery.service;
 
-import com.yummy.delivery.domailn.User;
+import com.yummy.delivery.domain.User;
 import com.yummy.delivery.dto.UserDTO;
 import com.yummy.delivery.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;

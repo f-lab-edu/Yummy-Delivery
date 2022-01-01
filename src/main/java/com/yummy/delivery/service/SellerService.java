@@ -1,6 +1,6 @@
 package com.yummy.delivery.service;
 
-import com.yummy.delivery.domailn.Seller;
+import com.yummy.delivery.domain.Seller;
 import com.yummy.delivery.dto.SellerDTO;
 import com.yummy.delivery.mapper.SellerMapper;
 import lombok.RequiredArgsConstructor;
@@ -21,12 +21,12 @@ public class SellerService {
     public void login(SellerDTO sellerDTO) {
         String encodingWord = passwordEncoder.encode(sellerDTO.getPassword());
 
-        Seller seller = sellerMapper.findByEmailAndPassword(sellerDTO.getEamil(),
+        Seller seller = sellerMapper.findByEmailAndPassword(sellerDTO.getEmail(),
                 encodingWord);
 
         validateExistUser(seller);
 
-        httpSession.setAttribute("SELLER_ID", seller);
+        httpSession.setAttribute("SellerID", seller);
 
     }
 
@@ -36,12 +36,13 @@ public class SellerService {
     }
 
     public void logout() {
-        httpSession.removeAttribute("SELLER_ID");
+        httpSession.removeAttribute("SellerID");
     }
 
     public void updateSeller(SellerDTO sellerDTO) {
-        Seller seller = sellerMapper.findByEmailAndPassword(sellerDTO.getEamil(),
-                sellerDTO.getPassword());
+        Seller sellerSession = (Seller) httpSession.getAttribute("SellerID");
+
+        Seller seller = sellerMapper.findByEmail(sellerSession.getEmail());
 
         validateExistUser(seller);
 

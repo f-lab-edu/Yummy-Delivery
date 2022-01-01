@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class SellerDTO {
 
-    private String eamil;
+    private String email;
 
     private String password;
 
