@@ -27,4 +27,10 @@ public class UserController {
         return RESPONSE_ENTITY_OK;
     }
 
+    @PutMapping("/mypage")
+    public ResponseEntity<Void> updateSeller(@RequestBody UserDTO userDTO) {
+        userService.updateUser(userDTO);
+        return RESPONSE_ENTITY_OK;
+    }
+
 }

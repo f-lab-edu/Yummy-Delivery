@@ -26,7 +26,7 @@ public class UserService {
 
         validateExistUser(user);
 
-        httpSession.setAttribute("USER_ID", user);
+        httpSession.setAttribute("UserID", user);
 
     }
 
@@ -36,7 +36,23 @@ public class UserService {
     }
 
     public void logout() {
-        httpSession.removeAttribute("USER_ID");
+        httpSession.removeAttribute("UserID");
+    }
+
+    public void updateUser(UserDTO userDTO) {
+        User userSession = (User) httpSession.getAttribute("UserID");
+
+        User user = userMapper.findByEmail(userSession.getEmail());
+
+        validateExistUser(user);
+
+        User userBuilder = User.builder()
+                .id(user.getId())
+                .password(userDTO.getPassword())
+                .address(userDTO.getAddress())
+                .build();
+
+        userMapper.updateByPasswordAndAddress(user);
     }
 
 }
