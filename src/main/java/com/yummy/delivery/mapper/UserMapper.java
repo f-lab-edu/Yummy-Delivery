@@ -1,5 +1,6 @@
 package com.yummy.delivery.mapper;
 
+import com.yummy.delivery.domain.Grade;
 import com.yummy.delivery.domain.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -18,6 +19,8 @@ public interface UserMapper {
     void deleteUser(@Param("email") String email);
 
     boolean isExistsEmail(@Param("email") String email);
+
+    Integer insertGrade(Grade grade);
 
     List<User> findAll();
 

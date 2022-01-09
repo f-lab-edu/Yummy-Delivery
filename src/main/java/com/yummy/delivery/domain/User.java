@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class User {
 
     private Integer id;
+    private Integer gradeId;
     private String email;
     private String password;
     private String name;
