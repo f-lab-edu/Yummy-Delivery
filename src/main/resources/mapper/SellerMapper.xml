@@ -5,7 +5,7 @@
 <mapper namespace = "com.yummy.delivery.mapper.SellerMapper">
 
     <insert id="insertSeller" parameterType="com.yummy.delivery.mapper.SellerMapper" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO seller (email, password, created_at, updated_at) VALUES(#{email}, #{password}, #{created_at}, #{updated_at})
+        INSERT INTO seller (email, password, created_at, updated_at) VALUES(#{email}, #{password}, #{createdAt}, #{updatedAt})
         <selectKey keyProperty="id" resultType="int" order="AFTER">
             SELECT last_insert_id()
         </selectKey>

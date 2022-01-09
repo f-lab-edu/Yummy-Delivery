@@ -15,10 +15,10 @@ import static com.yummy.delivery.httpStatus.httpComponent.RESPONSE_ENTITY_OK;
 public class SellerController {
 
     private final SellerService sellerService;
-    
-     /* 아이디(이메일) 중복확인 */
+
+    /* 아이디(이메일) 중복확인 */
     @GetMapping("/signup/{email}")
-    public void checkSameEmail(@RequestParam("email") String email){
+    public void checkSameEmail(@RequestParam("email") String email) {
         sellerService.checkSameEmail(email);
     }
 
@@ -42,6 +42,4 @@ public class SellerController {
         sellerService.logout();
         return RESPONSE_ENTITY_OK;
     }
-
 }
-

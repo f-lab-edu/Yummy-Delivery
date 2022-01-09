@@ -1,6 +1,7 @@
 package com.yummy.delivery.service;
 
-import com.yummy.delivery.domailn.User;
+import com.yummy.delivery.domain.Grade;
+import com.yummy.delivery.domain.User;
 import com.yummy.delivery.dto.UserDTO;
 import com.yummy.delivery.mapper.UserMapper;
 import org.apache.ibatis.annotations.Param;
@@ -20,12 +21,15 @@ public class UserService {
     private final UserMapper userMapper;
     private final HttpSession httpSession;
     private final PasswordEncoder passwordEncoder;
-  
+    private final Integer INIT_COUNT = 0;
+    private final String INIT_GRADE = "Bronze";
+
      /* 회원가입 */
     public void signUp(User user){
         encryptedPassword(user);    //  비밀번호 암호화
         saveInitialTime(user);     //  생성시간, 수정시간 저장
         userMapper.insertUser(user);
+        setGrade(user.getId());
     }
 
     /* 회원탈퇴 */
@@ -61,9 +65,20 @@ public class UserService {
         user.setPassword(encodePassword);
     }
 
+    /* 생성, 수정 시간 초기화 */
     public void saveInitialTime(User user){
-        user.setCreated_at(LocalDateTime.now());
-        user.setUpdated_at(LocalDateTime.now());
+        user.setCreatedAt(LocalDateTime.now());
+        user.setUpdatedAt(LocalDateTime.now());
+    }
+
+    /* 회원등급(grade 테이블) 초기화 */
+    public void setGrade(Integer userId){
+        Grade grade = Grade.builder()
+                .userId(userId)
+                .count(INIT_COUNT)
+                .grade(INIT_GRADE)
+                .build();
+        userMapper.insertGrade(grade);
     }
 
     public List<User> getUserList(){
@@ -90,7 +105,7 @@ public class UserService {
     public void logout() {
         httpSession.removeAttribute("USER_ID");
     }
-  
+
 //    public Optional<User> findOne(String email){
 //        return userMapper.findByEmail(email);
 //    }
@@ -98,6 +113,9 @@ public class UserService {
 //    public List<User> findMembers(){
 //        return userRepository.findAll();
 //    }
+
+
+}
 
 
 /* @Param Annotation 방식 */
@@ -114,5 +132,3 @@ public class UserService {
 //        userMapper.insertUser(email, encodePassword, name, phone, address, created_at, updated_at);
 //
 //    }
-
-}

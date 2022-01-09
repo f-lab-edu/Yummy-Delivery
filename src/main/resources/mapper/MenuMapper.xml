@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.yummy.delivery.mapper.MenuMapper">
+
+    <insert id="insertMenu" parameterType="com.yummy.delivery.mapper.MenuMapper" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO menu (store_id, name, price, photo, description, created_at, updated_at) VALUES(#{storeId}, #{name}, #{price}, #{photo}, #{description}, #{createdAt}, #{updatedAt})
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            SELECT last_insert_id()
+        </selectKey>
+    </insert>
+
+</mapper>

@@ -9,15 +9,14 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-public class User {
+public class Menu {
 
     private Integer id;
-    private Integer gradeId;
-    private String email;
-    private String password;
+    private Integer storeId;
     private String name;
-    private String phone;
-    private String address;
+    private Integer price;
+    private String photo;
+    private String description;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
