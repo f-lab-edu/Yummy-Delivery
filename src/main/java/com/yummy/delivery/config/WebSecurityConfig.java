@@ -1,4 +1,4 @@
-package com.yummy.delivery.security;
+package com.yummy.delivery.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
