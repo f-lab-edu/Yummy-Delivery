@@ -21,9 +21,9 @@ public class SellerService {
     private final PasswordEncoder passwordEncoder;
 
 
-  public void signUp(Seller seller){
-        encryptedPassword(seller);  //  비밀번호 암호화
-        saveInitialTime(seller);    //  생성시간, 수정시간 저장
+    public void signUp(Seller seller){
+        insertEncryptedPassword(seller);      //  비밀번호 암호화
+        insertCreatedTimeAndUpdatedTime(seller);    //  생성시간, 수정시간 저장
         sellerMapper.insertSeller(seller);
     }
 
@@ -45,12 +45,12 @@ public class SellerService {
         }
     }
 
-    public void encryptedPassword(Seller seller){
+    public void insertEncryptedPassword(Seller seller){
         String encodePassword = passwordEncoder.encode(seller.getPassword());
         seller.setPassword(encodePassword);
     }
 
-    public void saveInitialTime(Seller seller){
+    public void insertCreatedTimeAndUpdatedTime(Seller seller){
         seller.setCreatedAt(LocalDateTime.now());
         seller.setUpdatedAt(LocalDateTime.now());
     }

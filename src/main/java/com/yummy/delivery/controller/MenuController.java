@@ -18,6 +18,6 @@ public class MenuController {
     /* 메뉴 등록 */
     @PostMapping("/register/{storeId}")
     public void menuSet(@PathVariable("storeId") int storeId, Menu menu){
-        menuService.menuSet(storeId, menu);
+        menuService.insertMenu(storeId, menu);
     }
 }

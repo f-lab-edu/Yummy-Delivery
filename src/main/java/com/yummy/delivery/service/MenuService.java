@@ -14,13 +14,13 @@ public class MenuService {
 
     private final MenuMapper menuMapper;
 
-    public void menuSet(@Param("storeId") int storeId, Menu menu){
-        saveInitialTime(menu);
+    public void insertMenu(@Param("storeId") int storeId, Menu menu){
+        insertCreatedTimeAndUpdatedTime(menu);
         menu.setStoreId(storeId);
         menuMapper.insertMenu(menu);
     }
 
-    public void saveInitialTime(Menu menu){
+    public void insertCreatedTimeAndUpdatedTime(Menu menu){
         menu.setCreatedAt(LocalDateTime.now());
         menu.setUpdatedAt(LocalDateTime.now());
     }

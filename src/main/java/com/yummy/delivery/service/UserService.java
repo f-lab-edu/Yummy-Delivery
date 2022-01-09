@@ -26,10 +26,10 @@ public class UserService {
 
      /* 회원가입 */
     public void signUp(User user){
-        encryptedPassword(user);    //  비밀번호 암호화
-        saveInitialTime(user);     //  생성시간, 수정시간 저장
+        insertEncryptedPassword(user);    //  비밀번호 암호화
+        insertCreatedTimeAndUpdatedTime(user);     //  생성시간, 수정시간 저장
         userMapper.insertUser(user);
-        setGrade(user.getId());
+        insertGrade(user.getId());
     }
 
     /* 회원탈퇴 */
@@ -60,19 +60,19 @@ public class UserService {
     }
 
     /* 비밀번호 암호화 */
-    public void encryptedPassword(User user){
+    public void insertEncryptedPassword(User user){
         String encodePassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodePassword);
     }
 
     /* 생성, 수정 시간 초기화 */
-    public void saveInitialTime(User user){
+    public void insertCreatedTimeAndUpdatedTime(User user){
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
     }
 
     /* 회원등급(grade 테이블) 초기화 */
-    public void setGrade(Integer userId){
+    public void insertGrade(Integer userId){
         Grade grade = Grade.builder()
                 .userId(userId)
                 .count(INIT_COUNT)
