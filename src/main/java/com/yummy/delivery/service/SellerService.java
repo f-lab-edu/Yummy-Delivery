@@ -21,9 +21,15 @@ public class SellerService {
     private final PasswordEncoder passwordEncoder;
 
 
-    public void signUp(Seller seller){
-        insertEncryptedPassword(seller);      //  비밀번호 암호화
-        insertCreatedTimeAndUpdatedTime(seller);    //  생성시간, 수정시간 저장
+    public void signUp(SellerDTO sellerDTO){
+
+        Seller seller = Seller.builder()
+                .email(sellerDTO.getEmail())
+                .password(insertEncryptedPassword(sellerDTO))
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
+                .build();
+
         sellerMapper.insertSeller(seller);
     }
 
@@ -33,32 +39,27 @@ public class SellerService {
         }
     }
 
-    public void checkNullData(Seller seller){
-        if(seller.getEmail() == null || seller.getPassword() ==null){
+    public void checkNullData(SellerDTO sellerDTO){
+        if(sellerDTO.getEmail() == null || sellerDTO.getPassword() ==null){
             throw new NullPointerException("회원정보를 모두 기입해주세요");
         }
     }
 
-    public void checkPasswordLength(Seller seller){
-        if(seller.getPassword().length() < 8){
+    public void checkPasswordLength(SellerDTO sellerDTO){
+        if(sellerDTO.getPassword().length() < 8){
             throw new IllegalStateException("비밀번호를 8자리 이상 입력해주세요.");
         }
     }
 
-    public void insertEncryptedPassword(Seller seller){
-        String encodePassword = passwordEncoder.encode(seller.getPassword());
-        seller.setPassword(encodePassword);
-    }
-
-    public void insertCreatedTimeAndUpdatedTime(Seller seller){
-        seller.setCreatedAt(LocalDateTime.now());
-        seller.setUpdatedAt(LocalDateTime.now());
+    public String insertEncryptedPassword(SellerDTO sellerDTO){
+        String encodePassword = passwordEncoder.encode(sellerDTO.getPassword());
+        return encodePassword;
     }
 
     public void login(SellerDTO sellerDTO) {
         String encodingWord = passwordEncoder.encode(sellerDTO.getPassword());
 
-        Seller seller = sellerMapper.findByEmailAndPassword(sellerDTO.getEamil(),
+        Seller seller = sellerMapper.findByEmailAndPassword(sellerDTO.getEmail(),
                 encodingWord);
 
         validateExistUser(seller);
