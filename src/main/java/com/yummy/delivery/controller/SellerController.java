@@ -43,5 +43,10 @@ public class SellerController {
         return RESPONSE_ENTITY_OK;
     }
 
-}
+    @PutMapping("/mypage")
+    public ResponseEntity<Void> updateSeller(@RequestBody SellerDTO sellerDTO) {
+        sellerService.updateSeller(sellerDTO);
+        return RESPONSE_ENTITY_OK;
+    }
 
+}
