@@ -42,13 +42,14 @@ public class UserController {
         userService.userWithdrawal(email);
     }
 
-
+    /* 로그인 */
     @PostMapping("/login")
     public ResponseEntity<Void> login(@RequestBody UserDTO userDTO) {
         userService.login(userDTO);
         return RESPONSE_ENTITY_OK;
     }
 
+    /* 로그아웃 */
     @GetMapping("/logout")
     public ResponseEntity<Void> logout() {
         userService.logout();

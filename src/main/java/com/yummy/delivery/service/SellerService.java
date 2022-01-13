@@ -25,7 +25,7 @@ public class SellerService {
 
         Seller seller = Seller.builder()
                 .email(sellerDTO.getEmail())
-                .password(insertEncryptedPassword(sellerDTO))
+                .password(encryptedPassword(sellerDTO))
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .build();
@@ -51,7 +51,7 @@ public class SellerService {
         }
     }
 
-    public String insertEncryptedPassword(SellerDTO sellerDTO){
+    public String encryptedPassword(SellerDTO sellerDTO){
         String encodePassword = passwordEncoder.encode(sellerDTO.getPassword());
         return encodePassword;
     }

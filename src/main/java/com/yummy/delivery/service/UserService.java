@@ -28,7 +28,7 @@ public class UserService {
     public void signUp(UserDTO userDTO){
         User user = User.builder()
                 .email(userDTO.getEmail())
-                .password(insertEncryptedPassword(userDTO))
+                .password(encryptedPassword(userDTO))
                 .name(userDTO.getName())
                 .phone(userDTO.getPhone())
                 .address(userDTO.getAddress())
@@ -67,7 +67,7 @@ public class UserService {
     }
 
     /* 비밀번호 암호화 */
-    public String insertEncryptedPassword(UserDTO userDTO){
+    public String encryptedPassword(UserDTO userDTO){
         String encodePassword = passwordEncoder.encode(userDTO.getPassword());
         return encodePassword;
     }
