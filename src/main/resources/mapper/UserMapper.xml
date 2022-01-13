@@ -5,7 +5,14 @@
 <mapper namespace = "com.yummy.delivery.mapper.UserMapper">
 
     <insert id="insertUser" parameterType="com.yummy.delivery.mapper.UserMapper" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO user (email, password, name, phone, address, created_at, updated_at) VALUES(#{email}, #{password}, #{name}, #{phone}, #{address}, #{created_at}, #{updated_at})
+        INSERT INTO user (email, password, name, phone, address, created_at, updated_at) VALUES(#{email}, #{password}, #{name}, #{phone}, #{address}, #{createdAt}, #{updatedAt})
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            SELECT last_insert_id()
+        </selectKey>
+    </insert>
+
+    <insert id="insertGrade" parameterType="com.yummy.delivery.mapper.UserMapper" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO grade (userId, count, grade) VALUES(#{user_id}, #{count}, #{grade})
         <selectKey keyProperty="id" resultType="int" order="AFTER">
             SELECT last_insert_id()
         </selectKey>

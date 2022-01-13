@@ -19,8 +19,8 @@ public class SellerService {
     private final SellerMapper sellerMapper;
     private final HttpSession httpSession;
     private final PasswordEncoder passwordEncoder;
-  
-  
+
+
   public void signUp(Seller seller){
         encryptedPassword(seller);  //  비밀번호 암호화
         saveInitialTime(seller);    //  생성시간, 수정시간 저장
@@ -51,8 +51,8 @@ public class SellerService {
     }
 
     public void saveInitialTime(Seller seller){
-        seller.setCreated_at(LocalDateTime.now());
-        seller.setUpdated_at(LocalDateTime.now());
+        seller.setCreatedAt(LocalDateTime.now());
+        seller.setUpdatedAt(LocalDateTime.now());
     }
 
     public void login(SellerDTO sellerDTO) {

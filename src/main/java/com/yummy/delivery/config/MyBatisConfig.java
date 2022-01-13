@@ -26,6 +26,10 @@ public class MyBatisConfig {
         var sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
 
+
+        sqlSessionFactoryBean.setConfigLocation(
+                new PathMatchingResourcePatternResolver().getResource("classpath:mybatis-config.xml"));
+
         //쿼리가 정의된 xml 파일들의 위치 지정
         sqlSessionFactoryBean.setMapperLocations(
                 new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*.xml")

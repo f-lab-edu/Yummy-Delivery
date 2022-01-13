@@ -17,14 +17,14 @@ public class UserController {
 
     private final UserService userService;
   
-      @GetMapping("/all")
+    @GetMapping("/all")
     public List<User> getUserList() {
         return userService.getUserList();
     }
 
     /* 아이디(이메일) 중복확인 */
     @GetMapping("/signup/{email}")
-    public void checkSameEmail(@PathVariable("email") String email){
+    public void checkSameEmail(@PathVariable("email") String email) {
         userService.checkSameEmail(email);
     }
 
@@ -37,8 +37,8 @@ public class UserController {
     }
 
     /* 회원 탈퇴 */
-    @DeleteMapping("/mypage/{email}")
-    public void userWithdrawal(@PathVariable("email") String email){
+    @DeleteMapping("mypage/{email}")
+    public void userWithdrawal(@PathVariable("email") String email) {
         userService.userWithdrawal(email);
     }
 
@@ -54,13 +54,10 @@ public class UserController {
         userService.logout();
         return RESPONSE_ENTITY_OK;
     }
-  
+}
+
 /* @Param Annotation 방식 */
 //@PostMapping("/user")
 //    public void signUp(@RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("name") String name, @RequestParam("phone") String phone, @RequestParam("address") String address) {
 //        userService.signUp(email, password, name, phone, address);
 //    }
-
-}
-
-
