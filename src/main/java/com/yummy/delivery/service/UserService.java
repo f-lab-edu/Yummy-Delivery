@@ -87,7 +87,7 @@ public class UserService {
     }
 
     /* 회원등급(grade 테이블) 초기화 */
-    public void insertGrade(Integer userId){
+    public void insertGrade(Long userId){
         Grade grade = Grade.builder()
                 .userId(userId)
                 .count(INIT_COUNT)

@@ -9,9 +9,12 @@ import lombok.ToString;
 @ToString
 public class Grade {
 
-    private Integer id;
-    private Integer userId;
+    private Long id;
+
+    private Long userId;
+
     private Integer count;
+
     private String grade;
 
 }

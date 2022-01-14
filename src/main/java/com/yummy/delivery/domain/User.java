@@ -11,13 +11,20 @@ import java.time.LocalDateTime;
 @ToString
 public class User {
 
-    private Integer id;
+    private Long id;
+
     private String email;
+
     private String password;
+
     private String name;
+
     private String phone;
+
     private String address;
+
     private LocalDateTime createdAt;
+    
     private LocalDateTime updatedAt;
 
 }

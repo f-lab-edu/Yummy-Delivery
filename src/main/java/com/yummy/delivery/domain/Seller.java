@@ -11,10 +11,14 @@ import java.time.LocalDateTime;
 @ToString
 public class Seller {
 
-    private Integer id;
+    private Long id;
+
     private String email;
+
     private String password;
+
     private LocalDateTime createdAt;
+  
     private LocalDateTime updatedAt;
 
 }
