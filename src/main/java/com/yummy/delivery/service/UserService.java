@@ -26,6 +26,7 @@ public class UserService {
 
      /* 회원가입 */
     public void signUp(UserDTO userDTO){
+        checkIncludeSpace(userDTO);
         User user = User.builder()
                 .email(userDTO.getEmail())
                 .password(encryptedPassword(userDTO))
@@ -53,9 +54,22 @@ public class UserService {
 
     /* null 값 확인 */
     public void checkNullData(UserDTO userDTO){
-        if(userDTO.getEmail() == null || userDTO.getPassword() ==null || userDTO.getName() == null ||
+        if(userDTO.getEmail() == null || userDTO.getPassword() == null || userDTO.getName() == null ||
                 userDTO.getPhone() == null || userDTO.getAddress() == null){
             throw new NullPointerException("회원정보를 모두 기입해주세요");
+        }
+    }
+
+    /* 이메일(아이디), 비밀번호, 이름 공백문자 검사 */
+    public void checkIncludeSpace(UserDTO userDTO){
+        if(userDTO.getEmail().indexOf(" ") != -1){
+                throw new IllegalStateException("이메일에 공백 값이 포함되어있습니다!!");
+        }
+        else if(userDTO.getPassword().indexOf(" ") != -1){
+            throw new IllegalStateException("비밀번호에 공백 값이 포함되어있습니다!!");
+        }
+        else if(userDTO.getName().indexOf(" ") != -1){
+            throw new IllegalStateException("이름에 공백 값이 포함되어있습니다!!");
         }
     }
 

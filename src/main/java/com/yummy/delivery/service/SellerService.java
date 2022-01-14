@@ -2,6 +2,7 @@ package com.yummy.delivery.service;
 
 import com.yummy.delivery.domain.Seller;
 import com.yummy.delivery.dto.SellerDTO;
+import com.yummy.delivery.dto.UserDTO;
 import com.yummy.delivery.mapper.SellerMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,7 +23,7 @@ public class SellerService {
 
 
     public void signUp(SellerDTO sellerDTO){
-
+        checkIncludeSpace(sellerDTO);
         Seller seller = Seller.builder()
                 .email(sellerDTO.getEmail())
                 .password(encryptedPassword(sellerDTO))
@@ -40,8 +41,18 @@ public class SellerService {
     }
 
     public void checkNullData(SellerDTO sellerDTO){
-        if(sellerDTO.getEmail() == null || sellerDTO.getPassword() ==null){
+        if(sellerDTO.getEmail() == null || sellerDTO.getPassword() == null){
             throw new NullPointerException("회원정보를 모두 기입해주세요");
+        }
+    }
+
+    /* 이메일(아이디), 비밀번호, 이름 공백문자 검사 */
+    public void checkIncludeSpace(SellerDTO sellerDTO){
+        if(sellerDTO.getEmail().indexOf(" ") != -1){
+            throw new IllegalStateException("이메일에 공백 값이 포함되어있습니다!!");
+        }
+        else if(sellerDTO.getPassword().indexOf(" ") != -1){
+            throw new IllegalStateException("비밀번호에 공백 값이 포함되어있습니다!!");
         }
     }
 
