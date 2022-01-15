@@ -25,11 +25,19 @@ public class UserService {
     private final String INIT_GRADE = "Bronze";
 
      /* 회원가입 */
-    public void signUp(User user){
-        encryptedPassword(user);    //  비밀번호 암호화
-        saveInitialTime(user);     //  생성시간, 수정시간 저장
+    public void signUp(UserDTO userDTO){
+        checkIncludeSpace(userDTO);
+        User user = User.builder()
+                .email(userDTO.getEmail())
+                .password(encryptedPassword(userDTO))
+                .name(userDTO.getName())
+                .phone(userDTO.getPhone())
+                .address(userDTO.getAddress())
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
+                .build();
         userMapper.insertUser(user);
-        setGrade(user.getId());
+        insertGrade(user.getId());  //  회원등급 테이블(grade) 데이터 삽입
     }
 
     /* 회원탈퇴 */
@@ -45,34 +53,41 @@ public class UserService {
     }
 
     /* null 값 확인 */
-    public void checkNullData(User user){
-        if(user.getEmail() == null || user.getPassword() ==null || user.getName() == null ||
-                user.getPhone() == null || user.getAddress() == null){
+    public void checkNullData(UserDTO userDTO){
+        if(userDTO.getEmail() == null || userDTO.getPassword() == null || userDTO.getName() == null ||
+                userDTO.getPhone() == null || userDTO.getAddress() == null){
             throw new NullPointerException("회원정보를 모두 기입해주세요");
         }
     }
 
+    /* 이메일(아이디), 비밀번호, 이름 공백문자 검사 */
+    public void checkIncludeSpace(UserDTO userDTO){
+        if(userDTO.getEmail().indexOf(" ") != -1){
+                throw new IllegalStateException("이메일에 공백 값이 포함되어있습니다!!");
+        }
+        else if(userDTO.getPassword().indexOf(" ") != -1){
+            throw new IllegalStateException("비밀번호에 공백 값이 포함되어있습니다!!");
+        }
+        else if(userDTO.getName().indexOf(" ") != -1){
+            throw new IllegalStateException("이름에 공백 값이 포함되어있습니다!!");
+        }
+    }
+
     /* 비밀번호 길이 확인 */
-    public void checkPasswordLength(User user){
-        if(user.getPassword().length() < 8){
+    public void checkPasswordLength(UserDTO userDTO){
+        if(userDTO.getPassword().length() < 8){
             throw new IllegalStateException("비밀번호를 8자리 이상 입력해주세요.");
         }
     }
 
     /* 비밀번호 암호화 */
-    public void encryptedPassword(User user){
-        String encodePassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodePassword);
-    }
-
-    /* 생성, 수정 시간 초기화 */
-    public void saveInitialTime(User user){
-        user.setCreatedAt(LocalDateTime.now());
-        user.setUpdatedAt(LocalDateTime.now());
+    public String encryptedPassword(UserDTO userDTO){
+        String encodePassword = passwordEncoder.encode(userDTO.getPassword());
+        return encodePassword;
     }
 
     /* 회원등급(grade 테이블) 초기화 */
-    public void setGrade(Integer userId){
+    public void insertGrade(Long userId){
         Grade grade = Grade.builder()
                 .userId(userId)
                 .count(INIT_COUNT)

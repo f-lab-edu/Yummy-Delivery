@@ -2,6 +2,7 @@ package com.yummy.delivery.service;
 
 import com.yummy.delivery.domain.Seller;
 import com.yummy.delivery.dto.SellerDTO;
+import com.yummy.delivery.dto.UserDTO;
 import com.yummy.delivery.mapper.SellerMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,9 +22,15 @@ public class SellerService {
     private final PasswordEncoder passwordEncoder;
 
 
-  public void signUp(Seller seller){
-        encryptedPassword(seller);  //  비밀번호 암호화
-        saveInitialTime(seller);    //  생성시간, 수정시간 저장
+    public void signUp(SellerDTO sellerDTO){
+        checkIncludeSpace(sellerDTO);
+        Seller seller = Seller.builder()
+                .email(sellerDTO.getEmail())
+                .password(encryptedPassword(sellerDTO))
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
+                .build();
+
         sellerMapper.insertSeller(seller);
     }
 
@@ -33,32 +40,37 @@ public class SellerService {
         }
     }
 
-    public void checkNullData(Seller seller){
-        if(seller.getEmail() == null || seller.getPassword() ==null){
+    public void checkNullData(SellerDTO sellerDTO){
+        if(sellerDTO.getEmail() == null || sellerDTO.getPassword() == null){
             throw new NullPointerException("회원정보를 모두 기입해주세요");
         }
     }
 
-    public void checkPasswordLength(Seller seller){
-        if(seller.getPassword().length() < 8){
+    /* 이메일(아이디), 비밀번호, 이름 공백문자 검사 */
+    public void checkIncludeSpace(SellerDTO sellerDTO){
+        if(sellerDTO.getEmail().indexOf(" ") != -1){
+            throw new IllegalStateException("이메일에 공백 값이 포함되어있습니다!!");
+        }
+        else if(sellerDTO.getPassword().indexOf(" ") != -1){
+            throw new IllegalStateException("비밀번호에 공백 값이 포함되어있습니다!!");
+        }
+    }
+
+    public void checkPasswordLength(SellerDTO sellerDTO){
+        if(sellerDTO.getPassword().length() < 8){
             throw new IllegalStateException("비밀번호를 8자리 이상 입력해주세요.");
         }
     }
 
-    public void encryptedPassword(Seller seller){
-        String encodePassword = passwordEncoder.encode(seller.getPassword());
-        seller.setPassword(encodePassword);
-    }
-
-    public void saveInitialTime(Seller seller){
-        seller.setCreatedAt(LocalDateTime.now());
-        seller.setUpdatedAt(LocalDateTime.now());
+    public String encryptedPassword(SellerDTO sellerDTO){
+        String encodePassword = passwordEncoder.encode(sellerDTO.getPassword());
+        return encodePassword;
     }
 
     public void login(SellerDTO sellerDTO) {
         String encodingWord = passwordEncoder.encode(sellerDTO.getPassword());
 
-        Seller seller = sellerMapper.findByEmailAndPassword(sellerDTO.getEamil(),
+        Seller seller = sellerMapper.findByEmailAndPassword(sellerDTO.getEmail(),
                 encodingWord);
 
         validateExistUser(seller);

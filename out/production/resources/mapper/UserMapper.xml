@@ -11,6 +11,13 @@
         </selectKey>
     </insert>
 
+    <insert id="insertGrade" parameterType="com.yummy.delivery.mapper.UserMapper" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO grade (user_id, count, grade) VALUES(#{userId}, #{count}, #{grade})
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            SELECT last_insert_id()
+        </selectKey>
+    </insert>
+
     <delete id="deleteUser" parameterType="String">
         DELETE FROM user WHERE email = #{email}
     </delete>

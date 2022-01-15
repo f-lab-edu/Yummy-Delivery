@@ -30,10 +30,10 @@ public class UserController {
 
     /* 회원가입 */
     @PostMapping("/signup")
-    public void signUp(User user) {
-        userService.checkNullData(user);    //  회원정보를 모두 기입했는지 확인하는 메서드
-        userService.checkPasswordLength(user);  //  비밀번호를 8자리 이상 기입했는지 확인하는 메서드
-        userService.signUp(user);
+    public void signUp(@RequestBody UserDTO userDTO) {
+        userService.checkNullData(userDTO);    //  회원정보를 모두 기입했는지 확인하는 메서드
+        userService.checkPasswordLength(userDTO);  //  비밀번호를 8자리 이상 기입했는지 확인하는 메서드
+        userService.signUp(userDTO);
     }
 
     /* 회원 탈퇴 */
@@ -42,13 +42,14 @@ public class UserController {
         userService.userWithdrawal(email);
     }
 
-
+    /* 로그인 */
     @PostMapping("/login")
     public ResponseEntity<Void> login(@RequestBody UserDTO userDTO) {
         userService.login(userDTO);
         return RESPONSE_ENTITY_OK;
     }
 
+    /* 로그아웃 */
     @GetMapping("/logout")
     public ResponseEntity<Void> logout() {
         userService.logout();

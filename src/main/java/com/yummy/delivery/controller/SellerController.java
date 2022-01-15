@@ -24,10 +24,10 @@ public class SellerController {
 
     /* 회원가입 */
     @PostMapping("/signup")
-    public void signUp(Seller seller) {
-        sellerService.checkNullData(seller);    //  회원정보를 모두 기입했는지 확인하는 메서드
-        sellerService.checkPasswordLength(seller);  //  비밀번호를 8자리 이상 기입했는지 확인하는 메서드
-        sellerService.signUp(seller);
+    public void signUp(@RequestBody SellerDTO sellerDTO) {
+        sellerService.checkNullData(sellerDTO);    //  회원정보를 모두 기입했는지 확인하는 메서드
+        sellerService.checkPasswordLength(sellerDTO);  //  비밀번호를 8자리 이상 기입했는지 확인하는 메서드
+        sellerService.signUp(sellerDTO);
     }
 
 

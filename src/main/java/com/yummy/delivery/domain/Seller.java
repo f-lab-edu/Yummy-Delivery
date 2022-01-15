@@ -1,14 +1,14 @@
 package com.yummy.delivery.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Builder
-@AllArgsConstructor
+@ToString
 public class Seller {
 
     private Long id;
