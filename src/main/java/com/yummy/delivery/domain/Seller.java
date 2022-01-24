@@ -19,3 +19,4 @@ public class Seller {
 
     private String address;
 }
+
