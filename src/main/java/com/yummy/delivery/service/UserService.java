@@ -46,9 +46,11 @@ public class UserService {
 
         validateExistUser(user);
 
+        String encodingWord = passwordEncoder.encode(userDTO.getPassword());
+
         User userBuilder = User.builder()
                 .id(user.getId())
-                .password(userDTO.getPassword())
+                .password(passwordEncoder.encode(userDTO.getPassword()))
                 .address(userDTO.getAddress())
                 .build();
 
