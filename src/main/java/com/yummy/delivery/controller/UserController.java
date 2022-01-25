@@ -55,6 +55,12 @@ public class UserController {
         return RESPONSE_ENTITY_OK;
     }
   
+   @PutMapping("/mypage")
+    public ResponseEntity<Void> updateSeller(@RequestBody UserDTO userDTO) {
+        userService.updateUser(userDTO);
+        return RESPONSE_ENTITY_OK;
+    }
+  
 /* @Param Annotation 방식 */
 //@PostMapping("/user")
 //    public void signUp(@RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("name") String name, @RequestParam("phone") String phone, @RequestParam("address") String address) {
@@ -63,4 +69,4 @@ public class UserController {
 
 }
 
-
+}
