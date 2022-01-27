@@ -78,7 +78,7 @@ public class UserService {
 
         validateExistUser(user);
 
-        httpSession.setAttribute("USER_ID", user);
+        httpSession.setAttribute("UserID", user);
 
     }
 
@@ -88,7 +88,25 @@ public class UserService {
     }
 
     public void logout() {
-        httpSession.removeAttribute("USER_ID");
+        httpSession.removeAttribute("UserID");
+    }
+
+    public void updateUser(UserDTO userDTO) {
+        User userSession = (User) httpSession.getAttribute("UserID");
+
+        User user = userMapper.findByEmail(userSession.getEmail());
+
+        validateExistUser(user);
+
+        String encodingWord = passwordEncoder.encode(userDTO.getPassword());
+
+        User userBuilder = User.builder()
+                .id(user.getId())
+                .password(passwordEncoder.encode(userDTO.getPassword()))
+                .address(userDTO.getAddress())
+                .build();
+
+        userMapper.updateByPasswordAndAddress(user);
     }
   
 //    public Optional<User> findOne(String email){
