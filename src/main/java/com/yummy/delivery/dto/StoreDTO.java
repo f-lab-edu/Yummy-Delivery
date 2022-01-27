@@ -3,16 +3,18 @@ package com.yummy.delivery.dto;
 import lombok.Getter;
 
 @Getter
-public class UserDTO {
+public class StoreDTO {
 
-    private String email;
+    private Long id;
 
-    private String password;
+    private Long sellerId;
 
     private String name;
 
     private String phone;
 
     private String address;
+
+    private String category;
 
 }
