@@ -1,5 +1,6 @@
 package com.yummy.delivery.controller;
 
+import com.yummy.delivery.domain.Store;
 import com.yummy.delivery.domain.User;
 import com.yummy.delivery.dto.UserDTO;
 import com.yummy.delivery.service.UserService;
@@ -16,10 +17,11 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-  
-    @GetMapping("/all")
-    public List<User> getUserList() {
-        return userService.getUserList();
+
+    /* 사용자 조회 */
+    @GetMapping("/{id}")
+    public List<User> getUserList(@PathVariable("id") Long id) {
+        return userService.getUserList(id);
     }
 
     /* 아이디(이메일) 중복확인 */
@@ -34,6 +36,12 @@ public class UserController {
         userService.checkNullData(userDTO);    //  회원정보를 모두 기입했는지 확인하는 메서드
         userService.checkPasswordLength(userDTO);  //  비밀번호를 8자리 이상 기입했는지 확인하는 메서드
         userService.signUp(userDTO);
+    }
+
+    /* 가게 목록 조회 */
+    @GetMapping("/home/{category}")
+    public List<Store> findStoreListByCategory(@PathVariable("category") String category){
+        return userService.findStoreListByCategory(category);
     }
 
     /* 회원 탈퇴 */
