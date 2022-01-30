@@ -41,11 +41,6 @@ public class UserService {
         insertGrade(user.getId());  //  회원등급 테이블(grade) 데이터 삽입
     }
 
-    /* 가게 목록 조회 */
-    public void findStoreList(@Param("category") String category){
-
-    }
-
     /* 회원탈퇴 */
     public void userWithdrawal(@Param("email") String email){
         userMapper.deleteUser(email);
@@ -111,7 +106,6 @@ public class UserService {
     public List<Store> findStoreListByCategory(@Param("category") String category){
         return userMapper.findStoreListByCategory(category);
     }
-
 
     public void login(UserDTO userDTO) {
         String encodingWord = passwordEncoder.encode(userDTO.getPassword());
