@@ -1,7 +1,6 @@
 package com.yummy.delivery.controller;
 
 import com.yummy.delivery.domain.Store;
-import com.yummy.delivery.domain.User;
 import com.yummy.delivery.dto.UserDTO;
 import com.yummy.delivery.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +19,7 @@ public class UserController {
 
     /* 사용자 조회 */
     @GetMapping("/{id}")
-    public List<User> getUserList(@PathVariable("id") Long id) {
+    public UserDTO getUserList(@PathVariable("id") Long id) {
         return userService.getUserList(id);
     }
 

@@ -98,7 +98,7 @@ public class UserService {
     }
 
     /* 사용자 조회 */
-    public List<User> getUserList(@Param("id") Long id){
+    public UserDTO getUserList(@Param("id") Long id){
         return userMapper.findAll(id);
     }
 

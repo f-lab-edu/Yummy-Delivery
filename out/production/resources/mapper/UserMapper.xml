@@ -31,8 +31,8 @@
         SELECT name, category, phone, address, B.email from store A inner join seller B on A.seller_id = B.id where category = #{category};
     </select>
 
-    <select id="findAll" resultType="hashMap">
-        SELECT id, email, name, phone, address FROM user WHERE id = #{id}
+    <select id="findAll" parameterType="Long" resultType="com.yummy.delivery.dto.UserDTO">
+        SELECT email, name, phone, address FROM user WHERE id = #{id}
     </select>
 
 
