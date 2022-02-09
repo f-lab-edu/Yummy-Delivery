@@ -1,6 +1,7 @@
 package com.yummy.delivery.service;
 
 import com.yummy.delivery.domain.Grade;
+import com.yummy.delivery.domain.Store;
 import com.yummy.delivery.domain.User;
 import com.yummy.delivery.dto.UserDTO;
 import com.yummy.delivery.mapper.UserMapper;
@@ -96,8 +97,14 @@ public class UserService {
         userMapper.insertGrade(grade);
     }
 
-    public List<User> getUserList(){
-        return userMapper.findAll();
+    /* 사용자 조회 */
+    public UserDTO getUserList(@Param("id") Long id){
+        return userMapper.findAll(id);
+    }
+
+    /* 가게 카테고리 조회 */
+    public List<Store> findStoreListByCategory(@Param("category") String category){
+        return userMapper.findStoreListByCategory(category);
     }
 
     public void login(UserDTO userDTO) {

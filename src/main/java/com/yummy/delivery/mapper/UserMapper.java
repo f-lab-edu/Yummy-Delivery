@@ -1,7 +1,9 @@
 package com.yummy.delivery.mapper;
 
 import com.yummy.delivery.domain.Grade;
+import com.yummy.delivery.domain.Store;
 import com.yummy.delivery.domain.User;
+import com.yummy.delivery.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -22,7 +24,9 @@ public interface UserMapper {
 
     Integer insertGrade(Grade grade);
 
-    List<User> findAll();
+    List<Store> findStoreListByCategory(@Param("category") String category);
+
+    UserDTO findAll(@Param("id") Long id);
 
     //    Optional<User> findByEmail(String email);
   

@@ -6,14 +6,14 @@
 
     <insert id="insertUser" parameterType="com.yummy.delivery.mapper.UserMapper" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO user (email, password, name, phone, address, created_at, updated_at) VALUES(#{email}, #{password}, #{name}, #{phone}, #{address}, #{createdAt}, #{updatedAt})
-        <selectKey keyProperty="id" resultType="int" order="AFTER">
+        <selectKey keyProperty="id" resultType="Long" order="AFTER">
             SELECT last_insert_id()
         </selectKey>
     </insert>
 
     <insert id="insertGrade" parameterType="com.yummy.delivery.mapper.UserMapper" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO grade (user_id, count, grade) VALUES(#{userId}, #{count}, #{grade})
-        <selectKey keyProperty="id" resultType="int" order="AFTER">
+        <selectKey keyProperty="id" resultType="Long" order="AFTER">
             SELECT last_insert_id()
         </selectKey>
     </insert>
@@ -27,8 +27,12 @@
         (SELECT email FROM user WHERE email = #{email})
     </select>
 
-    <select id="findAll" resultType="List">
-        SELECT * FROM user
+    <select id="findStoreListByCategory" parameterType="String" resultType="hashMap">
+        SELECT name, category, phone, address, B.email from store A inner join seller B on A.seller_id = B.id where category = #{category};
+    </select>
+
+    <select id="findAll" parameterType="Long" resultType="com.yummy.delivery.dto.UserDTO">
+        SELECT email, name, phone, address FROM user WHERE id = #{id}
     </select>
 
 
