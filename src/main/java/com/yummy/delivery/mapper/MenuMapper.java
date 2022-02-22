@@ -8,5 +8,4 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MenuMapper {
 
     void insertMenu(Menu menu);
-
 }
