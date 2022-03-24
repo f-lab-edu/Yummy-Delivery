@@ -2,7 +2,6 @@ package com.yummy.delivery.service;
 
 import com.yummy.delivery.domain.Seller;
 import com.yummy.delivery.dto.SellerDTO;
-import com.yummy.delivery.dto.UserDTO;
 import com.yummy.delivery.mapper.SellerMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
