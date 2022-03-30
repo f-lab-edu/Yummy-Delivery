@@ -10,4 +10,8 @@ import java.util.List;
 public interface CartMapper {
 
     List<CartDTO> findCartList(@Param("userId") Long userId);
+
+    void deleteAllCartList(@Param("id") Long id);
+
+    void deleteSelectCartList(@Param("userId") Long userId, @Param("menuName") String menuName);
 }

@@ -18,4 +18,14 @@ public class CartService {
         return cartMapper.findCartList(userId);
     }
 
+    public void deleteAllCartList(@Param("id") Long id){
+        cartMapper.deleteAllCartList(id);
+    }
+
+    public void deleteSelectCartList(@Param("userId") Long userId, @Param("menuName") String menuName){
+        cartMapper.deleteSelectCartList(userId, menuName);
+    }
+
+
+
 }

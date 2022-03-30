@@ -8,4 +8,12 @@
         SELECT * FROM cart WHERE user_id = #{userId};
     </select>
 
+    <delete id="deleteAllCartList" parameterType="Long" >
+        DELETE FROM cart WHERE user_id = #{userId};
+    </delete>
+
+    <delete id="deleteSelectCartList" parameterType="com.yummy.delivery.dto.CartDTO" >
+        DELETE FROM cart WHERE user_id = #{userId} AND menu_name = #{menuName};
+    </delete>
+
 </mapper>
