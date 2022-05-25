@@ -2,9 +2,8 @@ package com.yummy.delivery.service;
 
 import com.yummy.delivery.domain.Grade;
 import com.yummy.delivery.domain.User;
-import com.yummy.delivery.dto.UserDTO;
+import com.yummy.delivery.dto.UserRequestDTO;
 import com.yummy.delivery.exception.UserIdExistedException;
-import com.yummy.delivery.exception.UserNotFoundException;
 import com.yummy.delivery.mapper.UserMapper;
 import org.apache.ibatis.annotations.Param;
 import lombok.RequiredArgsConstructor;
@@ -24,12 +23,9 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final Integer INIT_COUNT = 0;
     private final String INIT_GRADE = "Bronze";
-    private final Integer BLANK_CHECK = -1;
-    private final Integer EIGHT_LENGTH_CHECK = 8;
 
      /* 회원가입 */
-    public void signUp(UserDTO userDTO){
-        checkIncludeSpace(userDTO);
+    public void signUp(UserRequestDTO userDTO){
 
         User user = User.builder()
                 .email(userDTO.getEmail())
@@ -58,36 +54,8 @@ public class UserService {
         }
     }
 
-    /* null 값 확인 */
-    public void checkNullData(UserDTO userDTO){
-        if(userDTO.getEmail() == null || userDTO.getPassword() == null || userDTO.getName() == null ||
-                userDTO.getPhone() == null || userDTO.getAddress() == null){
-            throw new UserNotFoundException("회원정보를 모두 기입해주세요");
-        }
-    }
-
-    /* 이메일(아이디), 비밀번호, 이름 공백문자 검사 */
-    public void checkIncludeSpace(UserDTO userDTO){
-        if(userDTO.getEmail().indexOf(" ") != BLANK_CHECK){
-                throw new IllegalArgumentException("이메일에 공백 값이 포함되어있습니다!!");
-        }
-        else if(userDTO.getPassword().indexOf(" ") != BLANK_CHECK){
-            throw new IllegalArgumentException("비밀번호에 공백 값이 포함되어있습니다!!");
-        }
-        else if(userDTO.getName().indexOf(" ") != BLANK_CHECK){
-            throw new IllegalArgumentException("이름에 공백 값이 포함되어있습니다!!");
-        }
-    }
-
-    /* 비밀번호 길이 확인 */
-    public void checkPasswordLength(UserDTO userDTO){
-        if(userDTO.getPassword().length() < EIGHT_LENGTH_CHECK){
-            throw new IllegalArgumentException("비밀번호를 8자리 이상 입력해주세요.");
-        }
-    }
-
     /* 비밀번호 암호화 */
-    public String encryptedPassword(UserDTO userDTO){
+    public String encryptedPassword(UserRequestDTO userDTO){
         String encodePassword = passwordEncoder.encode(userDTO.getPassword());
         return encodePassword;
     }
@@ -104,12 +72,12 @@ public class UserService {
     }
 
     /* 사용자 조회 */
-    public UserDTO getUserList(@Param("id") Long id){
+    public UserRequestDTO getUserList(@Param("id") Long id){
         return userMapper.findAll(id);
     }
 
 
-    public void login(UserDTO userDTO) {
+    public void login(UserRequestDTO userDTO) {
         String encodingWord = passwordEncoder.encode(userDTO.getPassword());
 
         User user = userMapper.findByEmailAndPassword(userDTO.getEmail(),

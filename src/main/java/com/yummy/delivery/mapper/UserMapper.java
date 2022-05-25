@@ -3,7 +3,7 @@ package com.yummy.delivery.mapper;
 import com.yummy.delivery.domain.Grade;
 import com.yummy.delivery.domain.Store;
 import com.yummy.delivery.domain.User;
-import com.yummy.delivery.dto.UserDTO;
+import com.yummy.delivery.dto.UserRequestDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -26,7 +26,7 @@ public interface UserMapper {
 
     List<Store> findStoreListByCategory(@Param("category") String category);
 
-    UserDTO findAll(@Param("id") Long id);
+    UserRequestDTO findAll(@Param("id") Long id);
 
     //    Optional<User> findByEmail(String email);
   
