@@ -1,13 +1,11 @@
 package com.yummy.delivery.controller;
 
+import com.yummy.delivery.dto.MenuResponseDTO;
 import com.yummy.delivery.dto.StoreDTO;
 import com.yummy.delivery.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static com.yummy.delivery.httpStatus.httpComponent.RESPONSE_ENTITY_OK;
 
@@ -23,4 +21,10 @@ public class StoreController {
         storeService.insertStore(storeDTO);
         return RESPONSE_ENTITY_OK;
     }
+
+    @GetMapping("/{storesId}/menus")
+    public ResponseEntity<MenuResponseDTO> findStoreMenu(@PathVariable("storesId") long storeId) {
+        return ResponseEntity.ok(storeService.findStoreMenu(storeId));
+    }
+
 }
