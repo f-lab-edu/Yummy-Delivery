@@ -6,8 +6,11 @@ import com.yummy.delivery.dto.MenuFindResponseDTO;
 import com.yummy.delivery.dto.MenuResponseDTO;
 import com.yummy.delivery.dto.StoreDTO;
 import com.yummy.delivery.mapper.StoreMapper;
+import com.yummy.delivery.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +21,12 @@ import java.util.List;
 public class StoreService {
 
     private final StoreMapper storeMapper;
+    private final UserMapper userMapper;
+
+    /* 가게 카테고리 조회 */
+    public List<Store> findStoreListByCategory(@Param("category") String category){
+        return userMapper.findStoreListByCategory(category);
+    }
 
     public void insertStore(StoreDTO storeDTO) {
 

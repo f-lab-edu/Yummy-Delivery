@@ -1,14 +1,13 @@
 package com.yummy.delivery.controller;
 
-import com.yummy.delivery.domain.Store;
-import com.yummy.delivery.dto.UserDTO;
+import com.yummy.delivery.dto.UserRequestDTO;
 import com.yummy.delivery.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import static com.yummy.delivery.httpStatus.httpComponent.RESPONSE_ENTITY_OK;
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -19,7 +18,7 @@ public class UserController {
 
     /* 사용자 조회 */
     @GetMapping("/{id}")
-    public UserDTO getUserList(@PathVariable("id") Long id) {
+    public UserRequestDTO getUserList(@PathVariable("id") Long id) {
         return userService.getUserList(id);
     }
 
@@ -31,17 +30,15 @@ public class UserController {
 
     /* 회원가입 */
     @PostMapping("/signup")
-    public void signUp(@RequestBody UserDTO userDTO) {
-        userService.checkNullData(userDTO);    //  회원정보를 모두 기입했는지 확인하는 메서드
-        userService.checkPasswordLength(userDTO);  //  비밀번호를 8자리 이상 기입했는지 확인하는 메서드
+    public void signUp(@Valid @RequestBody UserRequestDTO userDTO) {
         userService.signUp(userDTO);
     }
 
-    /* 가게 목록 조회 */
+    /* 가게 목록 조회
     @GetMapping("/home/{category}")
     public List<Store> findStoreListByCategory(@PathVariable("category") String category){
         return userService.findStoreListByCategory(category);
-    }
+    }*/
 
     /* 회원 탈퇴 */
     @DeleteMapping("mypage/{email}")
@@ -51,7 +48,7 @@ public class UserController {
 
     /* 로그인 */
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<Void> login(@Valid @RequestBody UserRequestDTO userDTO) {
         userService.login(userDTO);
         return RESPONSE_ENTITY_OK;
     }
