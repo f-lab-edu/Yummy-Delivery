@@ -40,7 +40,8 @@ public class UserController {
     /* 가게 목록 조회 */
     @GetMapping("/home/{category}")
     public List<Store> findStoreListByCategory(@PathVariable("category") String category){
-        return userService.findStoreListByCategory(category);
+//        return userService.findStoreListByCategory(category);
+        return null;
     }
 
     /* 회원 탈퇴 */
