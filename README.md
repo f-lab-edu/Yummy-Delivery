@@ -1,4 +1,4 @@
-![header](https://capsule-render.vercel.app/api?type=transparent&color=auto&height=300&section=header&text=Yummy%20Delivery&fontSize=90)
+![header](https://capsule-render.vercel.app/api?type=transparent&color=black&height=300&section=header&text=Yummy%20Delivery&fontSize=90)
 - yummy의 뜻인 [맛있는, 기분좋은, 즐거운, 신나는] 이라는 뜻을 사용하여 고객이나 판매자가 서로 기분좋게 조리하고 <br/>
  배달해서 맛있게 먹자는 뜻으로 프로젝트명을 지었습니다.
 ---
