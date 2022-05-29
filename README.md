@@ -19,7 +19,12 @@
 
 프로젝트 사용기술
 ---
-- java, spring boot, mybatis, mysql, spock, junit
+- <img src="https://img.shields.io/badge/java-007396?style=flat-square&logo=java&logoColor=white"/>
+- <img src="https://img.shields.io/badge/spring boot-6DB33F?style=flat-square&logo=spring boot&logoColor=white"/>
+- <img src="https://img.shields.io/badge/mysql-4479A1?style=flat-square&logo=mysql&logoColor=white"/>
+- <img src="https://img.shields.io/badge/junit5-25A162?style=flat-square&logo=junit5&logoColor=white"/>
+- <img src="https://img.shields.io/badge/mybatis-40AEF0?style=flat-square&logo=mybatis&logoColor=white"/>
+- <img src="https://img.shields.io/badge/spock-004088?style=flat-square&logo=spock&logoColor=white"/>
 
 정책
 ---
