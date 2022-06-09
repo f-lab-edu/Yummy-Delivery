@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.yummy.delivery.mapper.CartMapper">
+
+    <select id="findById" resultType="com.yummy.delivery.domain.Cart">
+        SELECT *
+        FROM cart
+        WHERE id = #{id}
+    </select>
+
+    <select id = "findByUserId" resultType="com.yummy.delivery.domain.Cart">
+        SELECT c.*
+        FROM cart c
+        INNER JOIN user u
+        ON c.user_id = u.id
+        WHERE c.user_id = #{id}
+    </select>
+
+    <insert id = "insertCart" parameterType="com.yummy.delivery.mapper.CartMapper" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO cart (userId, menuId, storeId, count, created_at, updated_at)
+        VALUES(#{user_id}, #{menu_id}, #{store_id}, #{count}, #{created_at}, #{updated_at})
+        <selectKey keyProperty="id" resultType="Long" order="AFTER">
+            SELECT last_insert_id()
+        </selectKey>
+    </insert>
+
+    <update id="updateCart" parameterType="com.yummy.delivery.mapper.CartMapper" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        UPDATE cart (userId, menuId, storeId, count, created_at, updated_at)
+        VALUES(#{user_id}, #{menu_id}, #{store_id}, #{count}, #{created_at}, #{updated_at})
+    </update>
+
+
+    <delete id = "deleteByUserId">
+            DELETE *
+            FROM user
+            WHERE id = #{user_id}
+    </delete>
+
+
+
+</mapper>
