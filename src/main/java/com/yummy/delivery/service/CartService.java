@@ -1,14 +1,12 @@
 package com.yummy.delivery.service;
 
 import com.yummy.delivery.domain.Cart;
-import com.yummy.delivery.domain.Menu;
-import com.yummy.delivery.domain.Store;
 import com.yummy.delivery.dto.CartRequestDTO;
 import com.yummy.delivery.dto.CartResponseDTO;
 import com.yummy.delivery.mapper.CartMapper;
 import com.yummy.delivery.mapper.MenuMapper;
-import com.yummy.delivery.mapper.StoreMapper;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,16 +44,15 @@ public class CartService {
 
         List<CartResponseDTO> cartResponseDTOS = new ArrayList<>();
 
-        for(Cart cart : cartList) {
-
-            Menu menu = menuMapper.findByMenuId(cart.getMenuId());
-
-            CartResponseDTO cartResponseDTO = CartResponseDTO.create(cart, menu);
-            cartResponseDTOS.add(cartResponseDTO);
-
-        }
+        menuMapper.findByMenuId(cartList);
 
         return cartResponseDTOS;
+    }
+
+    public void deleteAllCartList(@Param("id") Long id) {
+
+        cartMapper.deleteByUserId(id);
+
     }
 
 

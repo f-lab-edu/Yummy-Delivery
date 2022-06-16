@@ -15,7 +15,7 @@
         FROM cart c
         INNER JOIN user u
         ON c.user_id = u.id
-        WHERE c.user_id = #{id}
+        WHERE c.user_id = #{userId}
     </select>
 
     <insert id = "insertCart" parameterType="com.yummy.delivery.mapper.CartMapper" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
@@ -32,10 +32,10 @@
     </update>
 
 
-    <delete id = "deleteByUserId">
+    <delete id = "deleteByUserId" parameterType="Long">
             DELETE *
-            FROM user
-            WHERE id = #{user_id}
+            FROM cart
+            WHERE user_id = #{userid}
     </delete>
 
 

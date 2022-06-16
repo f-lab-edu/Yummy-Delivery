@@ -11,12 +11,12 @@ public interface CartMapper {
 
     Cart findById(Integer id);
 
-    List<Cart> findByUserId(Long userId);
+    List<Cart> findByUserId(@Param("userId") Long userId);
 
     Cart insertCart(Cart cart);
 
     Cart updateCart(Cart cart);
 
-    void deleteByUserId(Long userId);
+    void deleteByUserId(@Param("userId") Long userId);
 
 }
