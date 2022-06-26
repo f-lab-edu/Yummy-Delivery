@@ -28,7 +28,7 @@ public class UserRequestDTO {
     private String name;
 
     @NotBlank(message = "전화번호는 필수 입력 값입니다.")
-    @Pattern(regexp = "[0-9]]{10,11}", message = "10~11자리의 숫자만 입력가능합니다.")
+    //@Pattern(regexp = "[0-9]]{10,11}", message = "10~11자리의 숫자만 입력가능합니다.")
     private String phone;
 
     @NotBlank(message = "주소는 필수 입력 값입니다.")

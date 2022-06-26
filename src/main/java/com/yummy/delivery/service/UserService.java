@@ -4,6 +4,7 @@ import com.yummy.delivery.domain.Grade;
 import com.yummy.delivery.domain.User;
 import com.yummy.delivery.dto.UserRequestDTO;
 import com.yummy.delivery.exception.UserIdExistedException;
+import com.yummy.delivery.exception.UserNotFoundException;
 import com.yummy.delivery.mapper.UserMapper;
 import org.apache.ibatis.annotations.Param;
 import lombok.RequiredArgsConstructor;
@@ -85,8 +86,21 @@ public class UserService {
 
         validateExistUser(user);
 
-        httpSession.setAttribute("USER_ID", user);
+        httpSession.setAttribute("USER_ID", User.builder()
+                .email(userDTO.getEmail())
+                .password(encryptedPassword(userDTO))
+                .name(userDTO.getName())
+                .phone(userDTO.getPhone())
+                .address(userDTO.getAddress())
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
+                .build());
 
+    }
+
+    public User getUserId() {
+        return (User) Optional.ofNullable(httpSession.getAttribute("USER_ID"))
+                .orElseThrow(() -> new UserNotFoundException("유저를 찾을 수 없습니다."));
     }
 
     private void validateExistUser(User user) {
