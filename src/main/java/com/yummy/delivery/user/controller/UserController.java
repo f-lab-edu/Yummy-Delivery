@@ -1,6 +1,6 @@
 package com.yummy.delivery.user.controller;
 
-import com.yummy.delivery.core.service.UserService;
+import com.yummy.delivery.user.UserService;
 import com.yummy.delivery.user.dto.CreateUserRequest;
 
 import org.springframework.web.bind.annotation.PostMapping;

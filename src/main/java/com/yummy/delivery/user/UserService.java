@@ -1,4 +1,4 @@
-package com.yummy.delivery.core.service;
+package com.yummy.delivery.user;
 
 import com.yummy.delivery.core.domain.User;
 import com.yummy.delivery.core.repository.UserRepository;
