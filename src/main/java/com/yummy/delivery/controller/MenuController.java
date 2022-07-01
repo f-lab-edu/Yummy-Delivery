@@ -1,5 +1,6 @@
 package com.yummy.delivery.controller;
 
+import com.yummy.delivery.annotation.LoginUser;
 import com.yummy.delivery.dto.MenuDTO;
 import com.yummy.delivery.service.MenuService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ public class MenuController {
 
     /* 메뉴 등록 */
     @PostMapping("/register/{storeId}")
+    @LoginUser
     public void menuSet(@PathVariable("storeId") int storeId, @RequestBody MenuDTO menuDTO){
         menuService.insertMenu(storeId, menuDTO);
     }
