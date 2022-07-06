@@ -11,4 +11,16 @@
         </selectKey>
     </insert>
 
+    <select id="findByMenuId" resultType="com.yummy.delivery.dto.CartResponseDTO">
+            SELECT *
+            FROM menu m
+            INNER JOIN  store s
+            ON m.store_id = s.id
+            WHERE s.id IN
+            <foreach collection="list" index="index" item="menu"
+            open="(" separator="," close=")">
+                #{menu.menuId}
+            </foreach>
+    </select>
+
 </mapper>
