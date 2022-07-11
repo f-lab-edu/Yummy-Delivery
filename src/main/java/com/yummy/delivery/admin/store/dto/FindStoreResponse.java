@@ -1,4 +1,4 @@
-package com.yummy.delivery.store.dto;
+package com.yummy.delivery.admin.store.dto;
 
 import java.time.LocalDateTime;
 
