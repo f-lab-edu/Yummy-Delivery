@@ -1,7 +1,7 @@
 package com.yummy.delivery.service;
 
 import com.yummy.delivery.core.domain.User;
-import com.yummy.delivery.user.CreateUserRequest;
+import com.yummy.delivery.user.dto.CreateUserRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

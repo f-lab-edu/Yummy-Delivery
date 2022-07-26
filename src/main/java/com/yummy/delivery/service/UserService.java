@@ -2,7 +2,7 @@ package com.yummy.delivery.service;
 
 import com.yummy.delivery.core.domain.User;
 import com.yummy.delivery.core.repository.UserRepository;
-import com.yummy.delivery.user.CreateUserRequest;
+import com.yummy.delivery.user.dto.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

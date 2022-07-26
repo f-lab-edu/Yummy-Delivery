@@ -1,6 +1,6 @@
 package com.yummy.delivery.core.domain;
 
-import com.yummy.delivery.user.CreateUserRequest;
+import com.yummy.delivery.user.dto.CreateUserRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

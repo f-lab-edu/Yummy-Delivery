@@ -1,4 +1,4 @@
-package com.yummy.delivery.user;
+package com.yummy.delivery.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
