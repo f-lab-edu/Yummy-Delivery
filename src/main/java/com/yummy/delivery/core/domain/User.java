@@ -4,19 +4,19 @@ import com.yummy.delivery.user.dto.CreateUserRequest;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-import lombok.Data;
+import lombok.*;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 @Entity
-@Data
 public class User {
 
-  @Id
-  @GeneratedValue(strategy= GenerationType.IDENTITY)
+  @Id @GeneratedValue(strategy= GenerationType.IDENTITY)
+  @Column(name = "id")
   private Long id;
   private String email;
   private String password;
