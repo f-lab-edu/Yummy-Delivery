@@ -11,21 +11,22 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class SignUpService {
-   private final PasswordEncoder passwordEncoder;
-   private final UserRepository userRepository;
 
-   @Transactional
-   public User signUp(CreateUserRequest createUserRequest) {
-     boolean emailExist = userRepository.existsByEmailEqualsIgnoreCase(createUserRequest.getEmail());
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
-     if (emailExist) {
-      throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
+    @Transactional
+    public User signUp(CreateUserRequest createUserRequest) {
+        boolean emailExist = userRepository.existsByEmailEqualsIgnoreCase(createUserRequest.getEmail());
+
+        if (emailExist) {
+            throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
     }
 
-     String hashed = passwordEncoder.encode(createUserRequest.getPassword());
+        String hashed = passwordEncoder.encode(createUserRequest.getPassword());
 
-     User user = User.create(createUserRequest, hashed);
+        User user = User.create(createUserRequest, hashed);
 
-     return userRepository.save(user);
+        return userRepository.save(user);
   }
 }
