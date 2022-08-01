@@ -1,8 +1,7 @@
 package com.yummy.delivery.user.controller;
 
-import com.yummy.delivery.user.service.SignUpService;
 import com.yummy.delivery.user.dto.CreateUserRequest;
-
+import com.yummy.delivery.user.service.SignUpService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
