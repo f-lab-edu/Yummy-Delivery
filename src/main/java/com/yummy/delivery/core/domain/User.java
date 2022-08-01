@@ -1,10 +1,7 @@
 package com.yummy.delivery.core.domain;
 
 import com.yummy.delivery.user.dto.CreateUserRequest;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,10 +10,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@ToString
+@Builder
 public class User {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -48,5 +46,4 @@ public class User {
         user.gradeId = 1;
         return user;
     }
-
 }

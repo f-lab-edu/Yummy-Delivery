@@ -2,6 +2,7 @@ package com.yummy.delivery.service;
 
 import com.yummy.delivery.core.domain.User;
 import com.yummy.delivery.user.dto.CreateUserRequest;
+import com.yummy.delivery.user.service.SignUpService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,10 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 @ExtendWith(SpringExtension.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @SpringBootTest
-class UserServiceTest {
+class SignUpServiceTest {
 
     @Autowired
-    UserService userService;
+    SignUpService signUpService;
 
     @Transactional
     @Test
@@ -33,7 +34,7 @@ class UserServiceTest {
         );
 
         //when
-        User result = userService.signUp(createUserRequest);
+        User result = signUpService.signUp(createUserRequest);
 
         //then
         Assertions.assertNotNull(result);
@@ -52,7 +53,7 @@ class UserServiceTest {
                 email, name, password, phone, address);
 
         try {
-            userService.signUp(createUserRequest);
+            signUpService.signUp(createUserRequest);
         } catch (Exception e) {
             System.out.println("오류 발생");
             e.printStackTrace();

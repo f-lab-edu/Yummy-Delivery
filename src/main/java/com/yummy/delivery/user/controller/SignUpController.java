@@ -1,7 +1,7 @@
 package com.yummy.delivery.user.controller;
 
-import com.yummy.delivery.service.UserService;
 import com.yummy.delivery.user.dto.CreateUserRequest;
+import com.yummy.delivery.user.service.SignUpService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,13 +11,12 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
-public class UserController {
+public class SignUpController {
 
-    private final UserService userService;
+  private final SignUpService signUpService;
 
-    @PostMapping("/users")
-    public void signUp(@Valid @RequestBody CreateUserRequest createUserRequest) {
-        userService.signUp(createUserRequest);
-    }
-
+  @PostMapping("/users")
+  public void signUp(@Valid @RequestBody CreateUserRequest createUserRequest) {
+    signUpService.signUp(createUserRequest);
+  }
 }

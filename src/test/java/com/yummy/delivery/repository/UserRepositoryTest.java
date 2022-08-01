@@ -2,6 +2,7 @@ package com.yummy.delivery.repository;
 
 import com.yummy.delivery.core.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -16,10 +17,10 @@ public class UserRepositoryTest {
     @Autowired
     UserRepository userRepository;
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void existsByEmailEqualsIgnoreCase_테스트() {
         //given
-        String email = "ehawson0@jimdo.com";
+        String email = "matton1@shinystat.com";
 
         //when
         boolean isExist = userRepository.existsByEmailEqualsIgnoreCase(email);
@@ -27,5 +28,4 @@ public class UserRepositoryTest {
         //then
         Assertions.assertTrue(isExist);
     }
-
 }
