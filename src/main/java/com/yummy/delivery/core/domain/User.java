@@ -1,10 +1,13 @@
 package com.yummy.delivery.core.domain;
 
 import com.yummy.delivery.user.dto.CreateUserRequest;
+import com.yummy.delivery.user.dto.UpdateUserRequest;
+import io.micrometer.core.instrument.util.StringUtils;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.function.Function;
 
 @Getter
 @AllArgsConstructor
@@ -45,5 +48,22 @@ public class User {
         user.updatedAt = LocalDateTime.now();
         user.gradeId = 1;
         return user;
+    }
+
+    public void update(UpdateUserRequest updateUserRequest, Function<String, String> hashFunc) {
+
+        if(StringUtils.isNotEmpty(updateUserRequest.getPassword())) {
+            this.password = hashFunc.apply(updateUserRequest.getPassword());
+        }
+
+        if(StringUtils.isNotEmpty(updateUserRequest.getPhone())) {
+            this.phone = updateUserRequest.getPhone();
+        }
+
+        if(StringUtils.isNotEmpty(updateUserRequest.getAddress())) {
+            this.address = updateUserRequest.getAddress();
+        }
+
+
     }
 }
