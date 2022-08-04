@@ -38,8 +38,12 @@ public class LoginService {
                 .orElseThrow(IllegalArgumentException::new);
     }
 
-    public User getUserId() {
+    public User getUserBySession() {
         return (User) Optional.ofNullable(httpSession.getAttribute("USER_ID"))
                 .orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
+    }
+
+    public void logoutUser() {
+        httpSession.removeAttribute("USER_ID");
     }
 }
