@@ -13,10 +13,10 @@ import javax.validation.Valid;
 @RestController
 public class SignUpController {
 
-  private final SignUpService signUpService;
+    private final SignUpService signUpService;
 
-  @PostMapping("/users")
-  public void signUp(@Valid @RequestBody CreateUserRequest createUserRequest) {
-    signUpService.signUp(createUserRequest);
+    @PostMapping("/users")
+    public void signUp(@Valid @RequestBody CreateUserRequest createUserRequest) {
+        signUpService.signUp(createUserRequest);
   }
 }
