@@ -8,8 +8,8 @@ import lombok.Data;
 @Entity
 @Data
 public class Grade {
-  @Id
-  private Integer id;
-  private Integer count;
-  private String grade;
+    @Id
+    private Integer id;
+    private Integer count;
+    private String grade;
 }
