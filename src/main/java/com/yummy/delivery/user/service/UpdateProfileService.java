@@ -21,7 +21,7 @@ public class UpdateProfileService {
     @Transactional
     public void update(UpdateUserRequest updateUserRequest) {
 
-        User user = loginService.getUserId();
+        User user = loginService.getUserBySession();
         user = userRepository.findByEmail(user.getEmail());
 
         Function<String, String> hashFunc = passwordEncoder::encode;
