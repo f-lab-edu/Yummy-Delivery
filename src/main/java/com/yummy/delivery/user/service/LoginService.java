@@ -23,11 +23,12 @@ public class LoginService {
 
         validateExistUser(findUser);
 
-        if(!passwordEncoder.matches(loginRequest.getPassword(), findUser.getPassword())) {
+        if (!passwordEncoder.matches(loginRequest.getPassword(), findUser.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
         httpSession.setAttribute("USER_ID", User.builder()
+                .id(findUser.getId())
                 .email(loginRequest.getLoginId())
                 .password(loginRequest.getPassword())
                 .build());
