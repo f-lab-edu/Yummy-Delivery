@@ -33,7 +33,7 @@ public class ProfileService {
     @Transactional
     public void delete() {
         User user = loginService.getUserBySession();
-        userRepository.deleteUserByEmail(user.getEmail());
+        userRepository.deleteById(user.getId());
     }
 
 }
