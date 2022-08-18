@@ -28,6 +28,7 @@ public class LoginService {
         }
 
         httpSession.setAttribute("USER_ID", User.builder()
+                .id(findUser.getId())
                 .email(loginRequest.getLoginId())
                 .password(loginRequest.getPassword())
                 .build());
@@ -41,6 +42,12 @@ public class LoginService {
     public User getUserBySession() {
         return (User) Optional.ofNullable(httpSession.getAttribute("USER_ID"))
                 .orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
+    }
+
+    public User getFreshUserBySession() {
+        User user = (User) Optional.ofNullable(httpSession.getAttribute("USER_ID"))
+                .orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
+        return userRepository.findById(user.getId()).orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
     }
 
     public void logoutUser() {
