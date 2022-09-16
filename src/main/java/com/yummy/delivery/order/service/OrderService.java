@@ -61,4 +61,37 @@ public class OrderService {
 
         return order;
     }
+
+    @Transactional
+    public void cancel(CancelOrder cancelOrder) {
+
+        User user = loginService.getLoggedInUserFromDatabase();
+
+        Orders order = orderRepository.findById(cancelOrder.getOrderId()).
+                orElseThrow(IllegalArgumentException::new);
+
+        if(!user.getId().equals(order.getUserId())) {
+            throw new IllegalArgumentException();
+        }
+
+        order.cancelOrder();
+        orderRepository.save(order);
+    }
+
+    @Transactional
+    public void confirm (ConfirmOrder confirmOrder) {
+
+        User user = loginService.getLoggedInUserFromDatabase();
+
+        Orders order = orderRepository.findById(confirmOrder.getOrderId()).
+                orElseThrow(IllegalArgumentException::new);
+
+        if(!user.getId().equals(order.getUserId())) {
+            throw new IllegalArgumentException();
+        }
+        order.confirm();
+        orderRepository.save(order);
+    }
+
+
 }
