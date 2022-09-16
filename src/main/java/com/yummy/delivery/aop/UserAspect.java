@@ -17,7 +17,7 @@ public class UserAspect {
 
     @Before("@annotation(com.yummy.delivery.annotation.LoginUser)")
     public void validationLogin() {
-        Optional.ofNullable(loginService.getUserBySession())
+        Optional.ofNullable(loginService.getLoggedInUserFromSession())
                 .orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
     }
 }

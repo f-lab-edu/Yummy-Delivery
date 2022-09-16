@@ -16,7 +16,6 @@ public class ProfileSellerController {
     @LoginSeller
     @PatchMapping("/update")
     public void update(@RequestBody UpdateSellerRequest updateSellerRequest) {
-        System.out.println("1");
         profileSellerService.update(updateSellerRequest);
     }
 

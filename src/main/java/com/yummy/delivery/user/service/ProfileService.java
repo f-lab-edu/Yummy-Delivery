@@ -21,7 +21,7 @@ public class ProfileService {
     @Transactional
     public void update(UpdateUserRequest updateUserRequest) {
 
-        User user = loginService.getUserBySession();
+        User user = loginService.getLoggedInUserFromSession();
         user = userRepository.findByEmail(user.getEmail());
 
         Function<String, String> hashFunc = passwordEncoder::encode;
@@ -32,7 +32,7 @@ public class ProfileService {
 
     @Transactional
     public void delete() {
-        User user = loginService.getUserBySession();
+        User user = loginService.getLoggedInUserFromSession();
         userRepository.deleteById(user.getId());
     }
 

@@ -39,12 +39,12 @@ public class LoginService {
                 .orElseThrow(IllegalArgumentException::new);
     }
 
-    public User getUserBySession() {
+    public User getLoggedInUserFromSession() {
         return (User) Optional.ofNullable(httpSession.getAttribute("USER_ID"))
                 .orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
     }
 
-    public User getFreshUserBySession() {
+    public User getLoggedInUserFromDatabase() {
         User user = (User) Optional.ofNullable(httpSession.getAttribute("USER_ID"))
                 .orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
         return userRepository.findById(user.getId()).orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));

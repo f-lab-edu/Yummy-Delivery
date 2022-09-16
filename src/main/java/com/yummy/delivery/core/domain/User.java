@@ -35,8 +35,6 @@ public class User {
 
     private LocalDateTime updatedAt;
 
-    private Integer gradeId;
-
     public static User create(CreateUserRequest createUserRequest, String hashedPassword) {
         User user = new User();
         user.email = createUserRequest.getEmail();
@@ -46,7 +44,6 @@ public class User {
         user.phone = createUserRequest.getPhone();
         user.createdAt = LocalDateTime.now();
         user.updatedAt = LocalDateTime.now();
-        user.gradeId = 1;
         return user;
     }
 
@@ -63,7 +60,6 @@ public class User {
         if(StringUtils.isNotEmpty(updateUserRequest.getAddress())) {
             this.address = updateUserRequest.getAddress();
         }
-
-
     }
+
 }
