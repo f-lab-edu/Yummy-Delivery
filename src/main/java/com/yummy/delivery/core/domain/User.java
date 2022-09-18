@@ -80,16 +80,9 @@ public class User {
     }
 
     public void updateAgree(AgreeRequest agreeRequest) {
-        if (agreeRequest.getAgreeTerms() == Agree.Y) {
-            this.agreeTerms = Agree.Y;
-        } else {
-            this.agreeTerms = Agree.N;
-        }
 
-        if (agreeRequest.getAgreeMarketing() == Agree.Y) {
-            this.agreeMarketing = Agree.Y;
-        } else {
-            this.agreeTerms = Agree.N;
-        }
+        this.agreeTerms = agreeRequest.isAgreeTerms() ? Agree.Y : Agree.N;
+
+        this.agreeMarketing = agreeRequest.isAgreeMarketing() ? Agree.Y : Agree.N;
     }
 }

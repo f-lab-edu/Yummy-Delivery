@@ -13,8 +13,8 @@ import javax.validation.constraints.NotNull;
 public class AgreeRequest {
 
     @NotNull
-    private Agree agreeTerms;
+    private boolean agreeTerms;
 
     @NotNull
-    private Agree agreeMarketing;
+    private boolean agreeMarketing;
 }
