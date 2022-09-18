@@ -3,6 +3,7 @@ package com.yummy.delivery.core.domain;
 import com.yummy.delivery.order.dto.CreateOrderRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.function.Function;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 @Entity
 public class Orders {
 
