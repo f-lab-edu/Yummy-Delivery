@@ -77,6 +77,23 @@ public class User {
 
     public enum Grade {
         BRONZE, SILVER, GOLD, PLATINUM;
+
+        public static Grade getGradeByOrderCount(Long orderCount) {
+            if(orderCount <= 5) {
+                return BRONZE;
+            } else if(orderCount <= 10) {
+                return SILVER;
+            } else if(orderCount <= 20) {
+                return GOLD;
+            } else {
+                return PLATINUM;
+            }
+        }
+    }
+
+    public void updateGrade(Grade grade) {
+        this.grade = grade;
+        this.updatedAt = LocalDateTime.now();
     }
 
     public void updateAgree(AgreeRequest agreeRequest) {
