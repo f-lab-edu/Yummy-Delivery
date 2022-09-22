@@ -11,6 +11,7 @@ import com.yummy.delivery.core.repository.UserRepository;
 import com.yummy.delivery.order.dto.CancelOrder;
 import com.yummy.delivery.order.dto.ConfirmOrder;
 import com.yummy.delivery.order.dto.CreateOrderRequest;
+import com.yummy.delivery.user.service.GradeService;
 import com.yummy.delivery.user.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -90,6 +91,11 @@ public class OrderService {
             throw new IllegalArgumentException();
         }
         order.confirm();
+
+        User.Grade grade = User.Grade.getGradeByOrderCount(orderRepository.countByUserId(user.getId()));
+        user.updateGrade(grade);
+
+        userRepository.save(user);
         orderRepository.save(order);
     }
 
