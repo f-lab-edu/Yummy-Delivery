@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -24,7 +25,7 @@ public class Menu {
 
     private String name;
 
-    private Integer price;
+    private BigDecimal price;
 
     private String photo;
 

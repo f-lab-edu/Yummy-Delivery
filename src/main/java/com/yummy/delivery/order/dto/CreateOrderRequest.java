@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,10 +22,12 @@ public class CreateOrderRequest {
     private Long storeId;
 
     @NotBlank
-    private List<MenuPair> menuPairs; // []
+    private List<MenuPair> menuPairs;
 
     @NotBlank
     private String payType;
+
+    private Set<Long> couponTicketIds;
 
     @Data
     @AllArgsConstructor
@@ -31,7 +35,7 @@ public class CreateOrderRequest {
 
         Long menuId;
         String menuName;
-        Integer menuVolume;
+        BigDecimal menuVolume;
 
     }
 
