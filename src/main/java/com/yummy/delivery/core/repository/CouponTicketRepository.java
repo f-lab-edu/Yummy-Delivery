@@ -1,6 +1,7 @@
 package com.yummy.delivery.core.repository;
 
 import com.yummy.delivery.core.domain.CouponTicket;
+import com.yummy.delivery.core.domain.Orders;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -18,5 +19,7 @@ public interface CouponTicketRepository extends JpaRepository<CouponTicket, Long
 
     //select * from coupon_ticket where id = :id and user_id = :id
     CouponTicket findCouponTicketByIdAndUserIdAndOrderIdIsNotNull(Long id, Long userId);
+
+    List<CouponTicket> findCouponTicketByOrder(Orders order);
 
 }

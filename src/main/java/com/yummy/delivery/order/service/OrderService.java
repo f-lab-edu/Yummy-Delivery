@@ -27,8 +27,7 @@ public class OrderService {
     private final GradeService gradeService;
     private final CouponTicketRepository couponTicketRepository;
 
-    // 주문 시도
-    // seller -> 승낙 or 거부
+
     @Transactional
     public Orders create(CreateOrderRequest createOrderRequest) {
 
@@ -56,7 +55,6 @@ public class OrderService {
             throw new IllegalArgumentException();
         }
 
-        orderRepository.save(order);
         return order;
     }
 
@@ -72,6 +70,10 @@ public class OrderService {
 
             CouponTicket ticket = couponTicketRepository.findCouponTicketByIdAndUserId(couponTicket, user.getId());
 
+            if(ticket == null) {
+                throw new IllegalArgumentException();
+            }
+
             discountPrice = discountPrice.add(ticket.getCoupon().getDiscountPrice());
         }
 
@@ -86,23 +88,21 @@ public class OrderService {
         Orders order = orderRepository.findById(cancelOrder.getOrderId()).
                 orElseThrow(IllegalArgumentException::new);
 
-        Set<Long> couponTickets = cancelOrder.getCouponTicketIds();
-
-        for (Long couponTicket : couponTickets) {
-
-            CouponTicket ticket = couponTicketRepository.findCouponTicketByIdAndUserIdAndOrderIdIsNotNull(couponTicket, user.getId());
-
-            ticket.cancelTicket(order);
-
-            couponTicketRepository.save(ticket);
-        }
-
         if (!user.getId().equals(order.getUserId())) {
             throw new IllegalArgumentException();
         }
 
+        List<CouponTicket> couponTickets = couponTicketRepository.findCouponTicketByOrder(order);
+
+        for(CouponTicket couponTicket : couponTickets) {
+            couponTicket.cancelTicket();
+        }
+
+        couponTicketRepository.saveAll(couponTickets);
+
         order.cancelOrder();
         orderRepository.save(order);
+        gradeService.updateGrade();
     }
 
     @Transactional

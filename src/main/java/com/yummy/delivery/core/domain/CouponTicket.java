@@ -26,8 +26,7 @@ public class CouponTicket {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY,
-                cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Orders order;
 
@@ -39,7 +38,7 @@ public class CouponTicket {
         this.order = order;
     }
 
-    public void cancelTicket(Orders order) {
+    public void cancelTicket() {
         this.order = null;
     }
 
