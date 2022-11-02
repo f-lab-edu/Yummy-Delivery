@@ -4,6 +4,7 @@ import com.yummy.delivery.core.domain.Coupon;
 import com.yummy.delivery.core.domain.CouponTicket;
 import com.yummy.delivery.core.domain.User;
 import com.yummy.delivery.core.repository.CouponRepository;
+import com.yummy.delivery.core.repository.CouponTicketJdbcRepository;
 import com.yummy.delivery.core.repository.CouponTicketRepository;
 import com.yummy.delivery.core.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -23,7 +24,7 @@ public class PublishCouponBatchService {
 
     private final UserRepository userRepository;
     private final CouponRepository couponRepository;
-    private final CouponTicketRepository couponTicketRepository;
+    private final CouponTicketJdbcRepository couponTicketJdbcRepository;
 
     /**
      * 매일 새벽 정각 12시마다 스케줄러를 실행
@@ -63,7 +64,7 @@ public class PublishCouponBatchService {
             couponTickets.add(ticket2);
         }
 
-        couponTicketRepository.saveAll(couponTickets);
+        couponTicketJdbcRepository.insertCouponTicket(couponTickets);
     }
 
     /**
@@ -102,7 +103,7 @@ public class PublishCouponBatchService {
             couponTickets.add(ticket3);
         }
 
-        couponTicketRepository.saveAll(couponTickets);
+        couponTicketJdbcRepository.insertCouponTicket(couponTickets);
     }
 
     /**
@@ -140,6 +141,6 @@ public class PublishCouponBatchService {
             couponTickets.add(ticket3);
         }
 
-        couponTicketRepository.saveAll(couponTickets);
+        couponTicketJdbcRepository.insertCouponTicket(couponTickets);
     }
 }
