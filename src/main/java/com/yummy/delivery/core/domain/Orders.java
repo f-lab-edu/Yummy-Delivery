@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Function;
@@ -34,7 +35,9 @@ public class Orders {
 
     private String payType;
 
-    private Integer totalPrice;
+    private BigDecimal amount;
+
+    private BigDecimal totalAmount;
 
     private String address;
 
@@ -43,7 +46,8 @@ public class Orders {
     public static Orders create(CreateOrderRequest createOrderRequest,
                                 User user,
                                 Store store,
-                                Function<List<CreateOrderRequest.MenuPair>, Integer> amountFunc) {
+                                Function<List<CreateOrderRequest.MenuPair>, BigDecimal> amountFunc,
+                                BigDecimal discountPrice) {
 
         Orders order = new Orders();
         order.userId = user.getId();
@@ -51,7 +55,8 @@ public class Orders {
         order.storeSellerId = store.getSellerId();
         order.orderStatus = OrderStatus.REQUEST;
         order.payType = createOrderRequest.getPayType();
-        order.totalPrice = amountFunc.apply(createOrderRequest.getMenuPairs());
+        order.amount = amountFunc.apply(createOrderRequest.getMenuPairs()).subtract(discountPrice);
+        order.totalAmount = amountFunc.apply(createOrderRequest.getMenuPairs());
         order.address = createOrderRequest.getAddress();
         order.createdAt = LocalDateTime.now();
 

@@ -1,13 +1,7 @@
 package com.yummy.delivery.order.service;
 
-import com.yummy.delivery.core.domain.Menu;
-import com.yummy.delivery.core.domain.Orders;
-import com.yummy.delivery.core.domain.Store;
-import com.yummy.delivery.core.domain.User;
-import com.yummy.delivery.core.repository.MenuRepository;
-import com.yummy.delivery.core.repository.OrderRepository;
-import com.yummy.delivery.core.repository.StoreRepository;
-import com.yummy.delivery.core.repository.UserRepository;
+import com.yummy.delivery.core.domain.*;
+import com.yummy.delivery.core.repository.*;
 import com.yummy.delivery.order.dto.CancelOrder;
 import com.yummy.delivery.order.dto.ConfirmOrder;
 import com.yummy.delivery.order.dto.CreateOrderRequest;
@@ -17,7 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
 
 @RequiredArgsConstructor
@@ -26,23 +22,24 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final MenuRepository menuRepository;
-    private final UserRepository userRepository;
     private final StoreRepository storeRepository;
     private final LoginService loginService;
+    private final GradeService gradeService;
+    private final CouponTicketRepository couponTicketRepository;
 
-    // 주문 시도
-    // seller -> 승낙 or 거부
+
     @Transactional
     public Orders create(CreateOrderRequest createOrderRequest) {
 
-        Function<List<CreateOrderRequest.MenuPair>, Integer> amountCalculator = menuPairs -> {
-            int totalAmount = 0;
+        Function<List<CreateOrderRequest.MenuPair>, BigDecimal> amountCalculator = menuPairs -> {
 
-            for(CreateOrderRequest.MenuPair menuPair : menuPairs) {
+            BigDecimal totalAmount = new BigDecimal("0");
+
+            for (CreateOrderRequest.MenuPair menuPair : menuPairs) {
                 Menu menu = menuRepository.findById(menuPair.getMenuId())
                         .orElseThrow(IllegalArgumentException::new);
-                int amount = menu.getPrice() * menuPair.getMenuVolume();
-                totalAmount += amount;
+                BigDecimal amount = menu.getPrice().multiply(menuPair.getMenuVolume());
+                totalAmount = totalAmount.add(amount);
             }
             return totalAmount;
         };
@@ -54,13 +51,33 @@ public class OrderService {
 
         Orders order = Orders.create(createOrderRequest, user, store, amountCalculator);
 
-        if(!user.getId().equals(order.getUserId())) {
+        if (!user.getId().equals(order.getUserId())) {
             throw new IllegalArgumentException();
         }
 
-        orderRepository.save(order);
-
         return order;
+    }
+
+    @Transactional
+    public BigDecimal calculateDiscountPrice(CreateOrderRequest createOrderRequest) {
+        User user = loginService.getLoggedInUserFromDatabase();
+
+        Set<Long> couponTicketList = createOrderRequest.getCouponTicketIds();
+
+        BigDecimal discountPrice = new BigDecimal("0");
+
+        for (Long couponTicket : couponTicketList) {
+
+            CouponTicket ticket = couponTicketRepository.findCouponTicketByIdAndUserId(couponTicket, user.getId());
+
+            if(ticket == null) {
+                throw new IllegalArgumentException();
+            }
+
+            discountPrice = discountPrice.add(ticket.getCoupon().getDiscountPrice());
+        }
+
+        return discountPrice;
     }
 
     @Transactional
@@ -71,31 +88,38 @@ public class OrderService {
         Orders order = orderRepository.findById(cancelOrder.getOrderId()).
                 orElseThrow(IllegalArgumentException::new);
 
-        if(!user.getId().equals(order.getUserId())) {
+        if (!user.getId().equals(order.getUserId())) {
             throw new IllegalArgumentException();
         }
 
+        List<CouponTicket> couponTickets = couponTicketRepository.findCouponTicketByOrder(order);
+
+        for(CouponTicket couponTicket : couponTickets) {
+            couponTicket.cancelTicket();
+        }
+
+        couponTicketRepository.saveAll(couponTickets);
+
         order.cancelOrder();
         orderRepository.save(order);
+        gradeService.updateGrade();
     }
 
     @Transactional
-    public void confirm (ConfirmOrder confirmOrder) {
+    public void confirm(ConfirmOrder confirmOrder) {
 
         User user = loginService.getLoggedInUserFromDatabase();
 
         Orders order = orderRepository.findById(confirmOrder.getOrderId()).
                 orElseThrow(IllegalArgumentException::new);
 
-        if(!user.getId().equals(order.getUserId())) {
+        if (!user.getId().equals(order.getUserId())) {
             throw new IllegalArgumentException();
         }
         order.confirm();
 
-        User.Grade grade = User.Grade.getGradeByOrderCount(orderRepository.countByUserId(user.getId()));
-        user.updateGrade(grade);
+        gradeService.updateGrade();
 
-        userRepository.save(user);
         orderRepository.save(order);
     }
 
