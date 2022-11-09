@@ -49,7 +49,9 @@ public class OrderService {
         Store store = storeRepository.findById(createOrderRequest.getStoreId())
                 .orElseThrow(IllegalArgumentException::new);
 
-        Orders order = Orders.create(createOrderRequest, user, store, amountCalculator);
+
+        BigDecimal discountPrice = calculateDiscountPrice(createOrderRequest);
+        Orders order = Orders.create(createOrderRequest, user, store, amountCalculator, discountPrice);
 
         if (!user.getId().equals(order.getUserId())) {
             throw new IllegalArgumentException();
