@@ -24,7 +24,7 @@ class SignUpServiceTest {
     @Test
     void userSignUpTest() throws Exception {
         //given
-        String email = "test@email.com";
+        String email = "test123@email.com";
         String name = "ddd";
         String password = "ddddd";
         String phone = "010-1234-5678";
@@ -43,7 +43,7 @@ class SignUpServiceTest {
 
     @Test
     void user_예외() throws Exception {
-        String email = "test@email.com";
+        String email = "test123@email.com";
         String name = "ddd";
         String password = "aaaaa";
         String phone = "010-1111-2222";
